@@ -14,7 +14,7 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/OpenDNS/vegadns2client v0.0.0-20180418235048-a3fa4a771d87
 	github.com/akamai/AkamaiOPEN-edgegrid-golang v1.1.0
-	github.com/aliyun/alibaba-cloud-sdk-go v1.61.976
+	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1167
 	github.com/aws/aws-sdk-go v1.37.27
 	github.com/cenkalti/backoff/v4 v4.1.1
 	github.com/cloudflare/cloudflare-go v0.14.0
@@ -31,6 +31,7 @@ require (
 	github.com/linode/linodego v0.25.3
 	github.com/liquidweb/liquidweb-go v1.6.3
 	github.com/miekg/dns v1.1.40
+	github.com/mitchellh/mapstructure v1.4.1
 	github.com/namedotcom/go v0.0.0-20180403034216-08470befbe04
 	github.com/nrdcg/auroradns v1.0.1
 	github.com/nrdcg/desec v0.5.0
