@@ -19,7 +19,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.1.1
 	github.com/cloudflare/cloudflare-go v0.14.0
 	github.com/cpu/goacmedns v0.1.1
-	github.com/dnsimple/dnsimple-go v0.63.0
+	github.com/dnsimple/dnsimple-go v0.70.1
 	github.com/exoscale/egoscale v0.46.0
 	github.com/google/go-querystring v1.1.0
 	github.com/gophercloud/gophercloud v0.16.0
