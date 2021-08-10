@@ -143,6 +143,7 @@ func displayDNSHelp(name string) error {
 		ew.writeln(`Credentials:`)
 		ew.writeln(`	- "ALICLOUD_ACCESS_KEY":	Access key ID`)
 		ew.writeln(`	- "ALICLOUD_SECRET_KEY":	Access Key secret`)
+		ew.writeln(`	- "ALICLOUD_SECURITY_TOKEN":	STS Security Token (optional)`)
 		ew.writeln()
 
 		ew.writeln(`Additional Configuration:`)
@@ -260,6 +261,7 @@ func displayDNSHelp(name string) error {
 		ew.writeln(`	- "AZURE_POLLING_INTERVAL":	Time between DNS propagation check`)
 		ew.writeln(`	- "AZURE_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
 		ew.writeln(`	- "AZURE_TTL":	The TTL of the TXT record used for the DNS challenge`)
+		ew.writeln(`	- "AZURE_ZONE_NAME":	Zone name to use inside Azure DNS service to add the TXT record in`)
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/azure`)
