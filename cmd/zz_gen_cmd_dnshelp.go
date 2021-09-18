@@ -59,6 +59,7 @@ func allDNSCodes() string {
 		"httpreq",
 		"hurricane",
 		"hyperone",
+		"ibmcloud",
 		"iij",
 		"infoblox",
 		"infomaniak",
@@ -78,6 +79,7 @@ func allDNSCodes() string {
 		"namesilo",
 		"netcup",
 		"netlify",
+		"nicmanager",
 		"nifcloud",
 		"njalla",
 		"ns1",
@@ -142,6 +144,7 @@ func displayDNSHelp(name string) error {
 
 		ew.writeln(`Credentials:`)
 		ew.writeln(`	- "ALICLOUD_ACCESS_KEY":	Access key ID`)
+		ew.writeln(`	- "ALICLOUD_RAM_ROLE":	Your instance RAM role (https://www.alibabacloud.com/help/doc-detail/54579.htm)`)
 		ew.writeln(`	- "ALICLOUD_SECRET_KEY":	Access Key secret`)
 		ew.writeln(`	- "ALICLOUD_SECURITY_TOKEN":	STS Security Token (optional)`)
 		ew.writeln()
@@ -1062,6 +1065,27 @@ func displayDNSHelp(name string) error {
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/hyperone`)
 
+	case "ibmcloud":
+		// generated from: providers/dns/ibmcloud/ibmcloud.toml
+		ew.writeln(`Configuration for IBM Cloud (SoftLayer).`)
+		ew.writeln(`Code:	'ibmcloud'`)
+		ew.writeln(`Since:	'v4.5.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "SOFTLAYER_API_KEY":	Classic Infrastructure API key`)
+		ew.writeln(`	- "SOFTLAYER_USERNAME":	User name (IBM Cloud is <accountID>_<emailAddress>)`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "SOFTLAYER_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "SOFTLAYER_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "SOFTLAYER_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "SOFTLAYER_TTL":	The TTL of the TXT record used for the DNS challenge`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/ibmcloud`)
+
 	case "iij":
 		// generated from: providers/dns/iij/iij.toml
 		ew.writeln(`Configuration for Internet Initiative Japan.`)
@@ -1470,6 +1494,31 @@ func displayDNSHelp(name string) error {
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/netlify`)
+
+	case "nicmanager":
+		// generated from: providers/dns/nicmanager/nicmanager.toml
+		ew.writeln(`Configuration for Nicmanager.`)
+		ew.writeln(`Code:	'nicmanager'`)
+		ew.writeln(`Since:	'v4.5.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "NICMANAGER_API_EMAIL":	Email-based login`)
+		ew.writeln(`	- "NICMANAGER_API_LOGIN":	Login, used for Username-based login`)
+		ew.writeln(`	- "NICMANAGER_API_PASSWORD":	Password, always required`)
+		ew.writeln(`	- "NICMANAGER_API_USERNAME":	Username, used for Username-based login`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "NICMANAGER_API_MODE":	mode: 'anycast' or 'zone' (default: 'anycast')`)
+		ew.writeln(`	- "NICMANAGER_API_OTP":	TOTP Secret (optional)`)
+		ew.writeln(`	- "NICMANAGER_HTTP_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "NICMANAGER_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "NICMANAGER_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "NICMANAGER_TTL":	The TTL of the TXT record used for the DNS challenge`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/nicmanager`)
 
 	case "nifcloud":
 		// generated from: providers/dns/nifcloud/nifcloud.toml

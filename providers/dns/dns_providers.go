@@ -50,6 +50,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/httpreq"
 	"github.com/go-acme/lego/v4/providers/dns/hurricane"
 	"github.com/go-acme/lego/v4/providers/dns/hyperone"
+	"github.com/go-acme/lego/v4/providers/dns/ibmcloud"
 	"github.com/go-acme/lego/v4/providers/dns/iij"
 	"github.com/go-acme/lego/v4/providers/dns/infoblox"
 	"github.com/go-acme/lego/v4/providers/dns/infomaniak"
@@ -69,6 +70,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/namesilo"
 	"github.com/go-acme/lego/v4/providers/dns/netcup"
 	"github.com/go-acme/lego/v4/providers/dns/netlify"
+	"github.com/go-acme/lego/v4/providers/dns/nicmanager"
 	"github.com/go-acme/lego/v4/providers/dns/nifcloud"
 	"github.com/go-acme/lego/v4/providers/dns/njalla"
 	"github.com/go-acme/lego/v4/providers/dns/ns1"
@@ -194,6 +196,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return hurricane.NewDNSProvider()
 	case "hyperone":
 		return hyperone.NewDNSProvider()
+	case "ibmcloud":
+		return ibmcloud.NewDNSProvider()
 	case "iij":
 		return iij.NewDNSProvider()
 	case "infoblox":
@@ -234,6 +238,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return netcup.NewDNSProvider()
 	case "netlify":
 		return netlify.NewDNSProvider()
+	case "nicmanager":
+		return nicmanager.NewDNSProvider()
 	case "nifcloud":
 		return nifcloud.NewDNSProvider()
 	case "njalla":

@@ -1,6 +1,6 @@
 module github.com/go-acme/lego/v4
 
-go 1.15
+go 1.16
 
 // github.com/exoscale/egoscale v1.19.0 => It is an error, please don't use it.
 // github.com/linode/linodego v1.0.0 => It is an error, please don't use it.
@@ -34,7 +34,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/namedotcom/go v0.0.0-20180403034216-08470befbe04
 	github.com/nrdcg/auroradns v1.0.1
-	github.com/nrdcg/desec v0.5.0
+	github.com/nrdcg/desec v0.6.0
 	github.com/nrdcg/dnspod-go v0.4.0
 	github.com/nrdcg/freemyip v0.2.0
 	github.com/nrdcg/goinwx v0.8.1
@@ -47,6 +47,7 @@ require (
 	github.com/rainycape/memcache v0.0.0-20150622160815-1031fa0ce2f2
 	github.com/sacloud/libsacloud v1.36.2
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210127161313-bd30bebeac4f
+	github.com/softlayer/softlayer-go v1.0.3
 	github.com/stretchr/testify v1.7.0
 	github.com/transip/gotransip/v6 v6.6.1
 	github.com/urfave/cli v1.22.5
