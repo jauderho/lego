@@ -1,29 +1,28 @@
 ---
-title: "Porkbun"
+title: "UKFast SafeDNS"
 date: 2019-03-03T16:39:46+01:00
 draft: false
-slug: porkbun
+slug: safedns
 ---
 
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
-<!-- providers/dns/porkbun/porkbun.toml -->
+<!-- providers/dns/safedns/safedns.toml -->
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
 
-Since: v4.4.0
+Since: v4.6.0
 
-Configuration for [Porkbun](https://porkbun.com/).
+Configuration for [UKFast SafeDNS](https://www.ukfast.co.uk/dns-hosting.html).
 
 
 <!--more-->
 
-- Code: `porkbun`
+- Code: `safedns`
 
-Here is an example bash command using the Porkbun provider:
+Here is an example bash command using the UKFast SafeDNS provider:
 
 ```bash
-PORKBUN_SECRET_API_KEY=xxxxxx \
-PORKBUN_API_KEY=yyyyyy \
-lego --email myemail@example.com --dns porkbun --domains my.example.org run
+SAFEDNS_AUTH_TOKEN=xxxxxx \
+lego --email myemail@example.com --dns safedns --domains my.example.org run
 ```
 
 
@@ -33,8 +32,7 @@ lego --email myemail@example.com --dns porkbun --domains my.example.org run
 
 | Environment Variable Name | Description |
 |-----------------------|-------------|
-| `PORKBUN_API_KEY` | API key |
-| `PORKBUN_SECRET_API_KEY` | secret API key |
+| `SAFEDNS_AUTH_TOKEN` | Authentication token |
 
 The environment variable names can be suffixed by `_FILE` to reference a file instead of a value.
 More information [here](/lego/dns/#configuration-and-credentials).
@@ -44,10 +42,10 @@ More information [here](/lego/dns/#configuration-and-credentials).
 
 | Environment Variable Name | Description |
 |--------------------------------|-------------|
-| `PORKBUN_HTTP_TIMEOUT` | API request timeout |
-| `PORKBUN_POLLING_INTERVAL` | Time between DNS propagation check |
-| `PORKBUN_PROPAGATION_TIMEOUT` | Maximum waiting time for DNS propagation |
-| `PORKBUN_TTL` | The TTL of the TXT record used for the DNS challenge |
+| `SAFEDNS_HTTP_TIMEOUT` | API request timeout |
+| `SAFEDNS_POLLING_INTERVAL` | Time between DNS propagation check |
+| `SAFEDNS_PROPAGATION_TIMEOUT` | Maximum waiting time for DNS propagation |
+| `SAFEDNS_TTL` | The TTL of the TXT record used for the DNS challenge |
 
 The environment variable names can be suffixed by `_FILE` to reference a file instead of a value.
 More information [here](/lego/dns/#configuration-and-credentials).
@@ -57,8 +55,8 @@ More information [here](/lego/dns/#configuration-and-credentials).
 
 ## More information
 
-- [API documentation](https://porkbun.com/api/json/v3/documentation)
+- [API documentation](https://developers.ukfast.io/documentation/safedns)
 
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
-<!-- providers/dns/porkbun/porkbun.toml -->
+<!-- providers/dns/safedns/safedns.toml -->
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->

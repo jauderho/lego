@@ -49,16 +49,19 @@ require (
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210127161313-bd30bebeac4f
 	github.com/softlayer/softlayer-go v1.0.3
 	github.com/stretchr/testify v1.7.0
+	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.287
+	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/dnspod v1.0.287
 	github.com/transip/gotransip/v6 v6.6.1
 	github.com/urfave/cli v1.22.5
 	github.com/vinyldns/go-vinyldns v0.9.16
 	github.com/vultr/govultr/v2 v2.7.1
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
-	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
+	golang.org/x/net v0.0.0-20210510120150-4163338589ed
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/time v0.0.0-20210611083556-38a9dc6acbc6
 	google.golang.org/api v0.20.0
 	gopkg.in/ns1/ns1-go.v2 v2.6.2
 	gopkg.in/square/go-jose.v2 v2.6.0
 	gopkg.in/yaml.v2 v2.4.0
+	software.sslmate.com/src/go-pkcs12 v0.0.0-20210415151418-c5206de65a78
 )

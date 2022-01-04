@@ -94,6 +94,7 @@ func allDNSCodes() string {
 		"rfc2136",
 		"rimuhosting",
 		"route53",
+		"safedns",
 		"sakuracloud",
 		"scaleway",
 		"selectel",
@@ -101,6 +102,7 @@ func allDNSCodes() string {
 		"simply",
 		"sonic",
 		"stackpath",
+		"tencentcloud",
 		"transip",
 		"vegadns",
 		"versio",
@@ -1829,6 +1831,26 @@ func displayDNSHelp(name string) error {
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/route53`)
 
+	case "safedns":
+		// generated from: providers/dns/safedns/safedns.toml
+		ew.writeln(`Configuration for UKFast SafeDNS.`)
+		ew.writeln(`Code:	'safedns'`)
+		ew.writeln(`Since:	'v4.6.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "SAFEDNS_AUTH_TOKEN":	Authentication token`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "SAFEDNS_HTTP_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "SAFEDNS_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "SAFEDNS_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "SAFEDNS_TTL":	The TTL of the TXT record used for the DNS challenge`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/safedns`)
+
 	case "sakuracloud":
 		// generated from: providers/dns/sakuracloud/sakuracloud.toml
 		ew.writeln(`Configuration for Sakura Cloud.`)
@@ -1975,6 +1997,28 @@ func displayDNSHelp(name string) error {
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/stackpath`)
+
+	case "tencentcloud":
+		// generated from: providers/dns/tencentcloud/tencentcloud.toml
+		ew.writeln(`Configuration for Tencent Cloud DNS.`)
+		ew.writeln(`Code:	'tencentcloud'`)
+		ew.writeln(`Since:	'v4.6.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "TENCENTCLOUD_SECRET_ID":	Access key ID`)
+		ew.writeln(`	- "TENCENTCLOUD_SECRET_KEY":	Access Key secret`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "TENCENTCLOUD_HTTP_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "TENCENTCLOUD_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "TENCENTCLOUD_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "TENCENTCLOUD_REGION":	Region`)
+		ew.writeln(`	- "TENCENTCLOUD_TTL":	The TTL of the TXT record used for the DNS challenge`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/tencentcloud`)
 
 	case "transip":
 		// generated from: providers/dns/transip/transip.toml
