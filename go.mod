@@ -6,7 +6,7 @@ go 1.16
 // github.com/linode/linodego v1.0.0 => It is an error, please don't use it.
 require (
 	cloud.google.com/go v0.54.0
-	github.com/Azure/azure-sdk-for-go v32.4.0+incompatible
+	github.com/Azure/azure-sdk-for-go v61.6.0+incompatible
 	github.com/Azure/go-autorest/autorest v0.11.19
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.8
 	github.com/Azure/go-autorest/autorest/to v0.4.0
