@@ -14,7 +14,7 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/OpenDNS/vegadns2client v0.0.0-20180418235048-a3fa4a771d87
 	github.com/akamai/AkamaiOPEN-edgegrid-golang v1.1.1
-	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1183
+	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1494
 	github.com/aws/aws-sdk-go v1.39.0
 	github.com/cenkalti/backoff/v4 v4.1.1
 	github.com/cloudflare/cloudflare-go v0.20.0
@@ -52,7 +52,7 @@ require (
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.287
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/dnspod v1.0.287
 	github.com/transip/gotransip/v6 v6.6.1
-	github.com/urfave/cli v1.22.5
+	github.com/urfave/cli/v2 v2.3.0
 	github.com/vinyldns/go-vinyldns v0.9.16
 	github.com/vultr/govultr/v2 v2.7.1
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
