@@ -1,29 +1,29 @@
 ---
-title: "all-inkl"
+title: "iwantmyname"
 date: 2019-03-03T16:39:46+01:00
 draft: false
-slug: allinkl
+slug: iwantmyname
 ---
 
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
-<!-- providers/dns/allinkl/allinkl.toml -->
+<!-- providers/dns/iwantmyname/iwantmyname.toml -->
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
 
-Since: v4.5.0
+Since: v4.7.0
 
-Configuration for [all-inkl](https://all-inkl.com).
+Configuration for [iwantmyname](https://iwantmyname.com).
 
 
 <!--more-->
 
-- Code: `allinkl`
+- Code: `iwantmyname`
 
-Here is an example bash command using the all-inkl provider:
+Here is an example bash command using the iwantmyname provider:
 
 ```bash
-ALL_INKL_LOGIN=xxxxxxxxxxxxxxxxxxxxxxxxxx \
-ALL_INKL_PASSWORD=yyyyyyyyyyyyyyyyyyyyyyyyyy \
-lego --email myemail@example.com --dns allinkl --domains my.example.org run
+IWANTMYNAME_USERNAME=xxxxxxxx \
+IWANTMYNAME_PASSWORD=xxxxxxxx \
+lego --email myemail@example.com --dns iwantmyname --domains my.example.org run
 ```
 
 
@@ -33,8 +33,8 @@ lego --email myemail@example.com --dns allinkl --domains my.example.org run
 
 | Environment Variable Name | Description |
 |-----------------------|-------------|
-| `ALL_INKL_LOGIN` | KAS login |
-| `ALL_INKL_PASSWORD` | KAS password |
+| `IWANTMYNAME_PASSWORD` | API password |
+| `IWANTMYNAME_USERNAME` | API username |
 
 The environment variable names can be suffixed by `_FILE` to reference a file instead of a value.
 More information [here](/lego/dns/#configuration-and-credentials).
@@ -44,9 +44,10 @@ More information [here](/lego/dns/#configuration-and-credentials).
 
 | Environment Variable Name | Description |
 |--------------------------------|-------------|
-| `ALL_INKL_HTTP_TIMEOUT` | API request timeout |
-| `ALL_INKL_POLLING_INTERVAL` | Time between DNS propagation check |
-| `ALL_INKL_PROPAGATION_TIMEOUT` | Maximum waiting time for DNS propagation |
+| `IWANTMYNAME_HTTP_TIMEOUT` | API request timeout |
+| `IWANTMYNAME_POLLING_INTERVAL` | Time between DNS propagation check |
+| `IWANTMYNAME_PROPAGATION_TIMEOUT` | Maximum waiting time for DNS propagation |
+| `IWANTMYNAME_TTL` | The TTL of the TXT record used for the DNS challenge |
 
 The environment variable names can be suffixed by `_FILE` to reference a file instead of a value.
 More information [here](/lego/dns/#configuration-and-credentials).
@@ -56,8 +57,8 @@ More information [here](/lego/dns/#configuration-and-credentials).
 
 ## More information
 
-- [API documentation](https://kasapi.kasserver.com/dokumentation/phpdoc/index.html)
+- [API documentation](https://iwantmyname.com/developer/domain-dns-api)
 
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
-<!-- providers/dns/allinkl/allinkl.toml -->
+<!-- providers/dns/iwantmyname/iwantmyname.toml -->
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
