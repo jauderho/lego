@@ -5,7 +5,8 @@ go 1.16
 // github.com/exoscale/egoscale v1.19.0 => It is an error, please don't use it.
 // github.com/linode/linodego v1.0.0 => It is an error, please don't use it.
 require (
-	cloud.google.com/go v0.54.0
+	cloud.google.com/go v0.101.0 // indirect
+	cloud.google.com/go/compute v1.6.0
 	github.com/Azure/azure-sdk-for-go v32.4.0+incompatible
 	github.com/Azure/go-autorest/autorest v0.11.19
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.8
@@ -56,10 +57,10 @@ require (
 	github.com/vinyldns/go-vinyldns v0.9.16
 	github.com/vultr/govultr/v2 v2.7.1
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
-	golang.org/x/net v0.0.0-20210510120150-4163338589ed
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+	golang.org/x/net v0.0.0-20220325170049-de3da57026de
+	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
 	golang.org/x/time v0.0.0-20210611083556-38a9dc6acbc6
-	google.golang.org/api v0.20.0
+	google.golang.org/api v0.74.0
 	gopkg.in/ns1/ns1-go.v2 v2.6.2
 	gopkg.in/square/go-jose.v2 v2.6.0
 	gopkg.in/yaml.v2 v2.4.0
