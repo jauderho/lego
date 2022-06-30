@@ -1,5 +1,43 @@
 # Changelog
 
+## [v4.8.0] - 2022-06-30
+
+### Added
+
+- **[dnsprovider]** Add DNS provider for Variomedia
+- **[dnsprovider]** Add NearlyFreeSpeech DNS Provider
+- **[cli]** Add a --user-agent flag to lego-cli
+
+### Changed
+
+- new logo
+- **[cli]** feat: sleep at renewal
+- **[cli]** cli/renew: skip random sleep if stdout is a terminal
+- **[dnsprovider]** hetzner: set min TTL to 60s
+- **[docs]** refactoring and cleanup
+
+## [v4.7.0] - 2022-05-27
+
+### Added:
+
+- **[dnsprovider]** Add DNS provider for iwantmyname
+- **[dnsprovider]** Add DNS Provider for IIJ DNS Platform Service
+- **[dnsprovider]** Add DNS provider for Vercel
+- **[dnsprovider]** route53: add assume role ARN
+- **[dnsprovider]** dnsimple: add debug option
+- **[cli]** feat: add `LEGO_CERT_PEM_PATH` and `LEGO_CERT_PFX_PATH`
+
+### Changed:
+
+- **[dnsprovider]** gcore: change dns api url
+- **[dnsprovider]** bluecat: rewrite provider implementation
+
+### Fixed:
+
+- **[dnsprovider]** rfc2136: fix TSIG secret
+- **[dnsprovider]** tencentcloud: fix InvalidParameter.DomainInvalid error when using DNS challenges
+- **[lib]** fix: panic in certcrypto.ParsePEMPrivateKey
+
 ## [v4.6.0] - 2022-01-18
 
 ### Added
