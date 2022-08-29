@@ -22,7 +22,7 @@ require (
 	github.com/dnsimple/dnsimple-go v0.70.1
 	github.com/exoscale/egoscale v0.67.0
 	github.com/google/go-querystring v1.1.0
-	github.com/gophercloud/gophercloud v0.16.0
+	github.com/gophercloud/gophercloud v1.0.0
 	github.com/gophercloud/utils v0.0.0-20210216074907-f6de111f2eae
 	github.com/iij/doapi v0.0.0-20190504054126-0bbf12d6d7df
 	github.com/infobloxopen/infoblox-go-client v1.1.1
@@ -55,7 +55,7 @@ require (
 	github.com/urfave/cli/v2 v2.3.0
 	github.com/vinyldns/go-vinyldns v0.9.16
 	github.com/vultr/govultr/v2 v2.16.0
-	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
+	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/time v0.0.0-20210611083556-38a9dc6acbc6
