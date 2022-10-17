@@ -5,7 +5,7 @@ go 1.18
 // github.com/exoscale/egoscale v1.19.0 => It is an error, please don't use it.
 require (
 	cloud.google.com/go v0.54.0
-	github.com/Azure/azure-sdk-for-go v32.4.0+incompatible
+	github.com/Azure/azure-sdk-for-go v67.0.0+incompatible
 	github.com/Azure/go-autorest/autorest v0.11.24
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.11
 	github.com/Azure/go-autorest/autorest/to v0.4.0
