@@ -13,7 +13,7 @@ require (
 	github.com/BurntSushi/toml v1.2.0
 	github.com/OpenDNS/vegadns2client v0.0.0-20180418235048-a3fa4a771d87
 	github.com/akamai/AkamaiOPEN-edgegrid-golang v1.2.1
-	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1755
+	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1823
 	github.com/aws/aws-sdk-go v1.39.0
 	github.com/cenkalti/backoff/v4 v4.1.3
 	github.com/civo/civogo v0.3.11
