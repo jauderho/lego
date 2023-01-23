@@ -44,7 +44,7 @@ require (
 	github.com/nrdcg/namesilo v0.2.1
 	github.com/nrdcg/porkbun v0.1.1
 	github.com/oracle/oci-go-sdk v24.3.0+incompatible
-	github.com/ovh/go-ovh v1.1.0
+	github.com/ovh/go-ovh v1.3.0
 	github.com/pquerna/otp v1.3.0
 	github.com/rainycape/memcache v0.0.0-20150622160815-1031fa0ce2f2
 	github.com/sacloud/api-client-go v0.2.1
