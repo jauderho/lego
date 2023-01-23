@@ -5,7 +5,7 @@ package cmd
 
 import (
 	"fmt"
-	"os"
+	"io"
 	"sort"
 	"strings"
 	"text/tabwriter"
@@ -71,6 +71,7 @@ func allDNSCodes() string {
 		"ionos",
 		"iwantmyname",
 		"joker",
+		"liara",
 		"lightsail",
 		"linode",
 		"liquidweb",
@@ -108,6 +109,7 @@ func allDNSCodes() string {
 		"stackpath",
 		"tencentcloud",
 		"transip",
+		"ultradns",
 		"variomedia",
 		"vegadns",
 		"vercel",
@@ -126,8 +128,8 @@ func allDNSCodes() string {
 	return strings.Join(providers, ", ")
 }
 
-func displayDNSHelp(name string) error {
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+func displayDNSHelp(w io.Writer, name string) error {
+	w = tabwriter.NewWriter(w, 0, 0, 2, ' ', 0)
 	ew := &errWriter{w: w}
 
 	switch name {
@@ -1336,6 +1338,26 @@ func displayDNSHelp(name string) error {
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/joker`)
 
+	case "liara":
+		// generated from: providers/dns/liara/liara.toml
+		ew.writeln(`Configuration for Liara.`)
+		ew.writeln(`Code:	'liara'`)
+		ew.writeln(`Since:	'v4.10.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "LIARA_API_KEY":	The API key`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "LIARA_HTTP_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "LIARA_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "LIARA_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "LIARA_TTL":	The TTL of the TXT record used for the DNS challenge`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/liara`)
+
 	case "lightsail":
 		// generated from: providers/dns/lightsail/lightsail.toml
 		ew.writeln(`Configuration for Amazon Lightsail.`)
@@ -2137,6 +2159,27 @@ func displayDNSHelp(name string) error {
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/transip`)
 
+	case "ultradns":
+		// generated from: providers/dns/ultradns/ultradns.toml
+		ew.writeln(`Configuration for Ultradns.`)
+		ew.writeln(`Code:	'ultradns'`)
+		ew.writeln(`Since:	'v4.10.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "ULTRADNS_PASSWORD":	API Password`)
+		ew.writeln(`	- "ULTRADNS_USERNAME":	API Username`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "ULTRADNS_ENDPOINT":	API endpoint URL, defaults to https://api.ultradns.com/`)
+		ew.writeln(`	- "ULTRADNS_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "ULTRADNS_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "ULTRADNS_TTL":	The TTL of the TXT record used for the DNS challenge`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/ultradns`)
+
 	case "variomedia":
 		// generated from: providers/dns/variomedia/variomedia.toml
 		ew.writeln(`Configuration for Variomedia.`)
@@ -2418,9 +2461,8 @@ func displayDNSHelp(name string) error {
 		return fmt.Errorf("%q is not yet supported", name)
 	}
 
-	if ew.err != nil {
-		return fmt.Errorf("error: %w", ew.err)
+	if flusher, ok := w.(interface{ Flush() error }); ok {
+		return flusher.Flush()
 	}
-
-	return w.Flush()
+	return nil
 }

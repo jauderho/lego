@@ -3,7 +3,6 @@ package sakuracloud
 import (
 	"context"
 	"fmt"
-	"strings"
 	"sync"
 
 	"github.com/go-acme/lego/v4/challenge/dns01"
@@ -15,23 +14,27 @@ import (
 // see: https://github.com/go-acme/lego/pull/850
 var mu sync.Mutex
 
-func (d *DNSProvider) addTXTRecord(fqdn, domain, value string, ttl int) error {
+func (d *DNSProvider) addTXTRecord(fqdn, value string, ttl int) error {
 	mu.Lock()
 	defer mu.Unlock()
 
-	zone, err := d.getHostedZone(domain)
+	zone, err := d.getHostedZone(fqdn)
 	if err != nil {
-		return fmt.Errorf("%w", err)
+		return err
 	}
 
-	name := extractRecordName(fqdn, zone.Name)
+	subDomain, err := dns01.ExtractSubDomain(fqdn, zone.Name)
+	if err != nil {
+		return err
+	}
 
 	records := append(zone.Records, &iaas.DNSRecord{
-		Name:  name,
+		Name:  subDomain,
 		Type:  "TXT",
 		RData: value,
 		TTL:   ttl,
 	})
+
 	_, err = d.client.UpdateSettings(context.Background(), zone.ID, &iaas.DNSUpdateSettingsRequest{
 		Records:      records,
 		SettingsHash: zone.SettingsHash,
@@ -43,20 +46,23 @@ func (d *DNSProvider) addTXTRecord(fqdn, domain, value string, ttl int) error {
 	return nil
 }
 
-func (d *DNSProvider) cleanupTXTRecord(fqdn, domain, value string) error {
+func (d *DNSProvider) cleanupTXTRecord(fqdn, value string) error {
 	mu.Lock()
 	defer mu.Unlock()
 
-	zone, err := d.getHostedZone(domain)
+	zone, err := d.getHostedZone(fqdn)
 	if err != nil {
 		return err
 	}
 
-	recordName := extractRecordName(fqdn, zone.Name)
+	subDomain, err := dns01.ExtractSubDomain(fqdn, zone.Name)
+	if err != nil {
+		return err
+	}
 
 	var updRecords iaas.DNSRecords
 	for _, r := range zone.Records {
-		if !(r.Name == recordName && r.Type == "TXT" && r.RData == value) {
+		if !(r.Name == subDomain && r.Type == "TXT" && r.RData == value) {
 			updRecords = append(updRecords, r)
 		}
 	}
@@ -74,7 +80,7 @@ func (d *DNSProvider) cleanupTXTRecord(fqdn, domain, value string) error {
 }
 
 func (d *DNSProvider) getHostedZone(domain string) (*iaas.DNS, error) {
-	authZone, err := dns01.FindZoneByFqdn(dns01.ToFqdn(domain))
+	authZone, err := dns01.FindZoneByFqdn(domain)
 	if err != nil {
 		return nil, err
 	}
@@ -103,12 +109,4 @@ func (d *DNSProvider) getHostedZone(domain string) (*iaas.DNS, error) {
 	}
 
 	return nil, fmt.Errorf("zone %s not found", zoneName)
-}
-
-func extractRecordName(fqdn, zone string) string {
-	name := dns01.UnFqdn(fqdn)
-	if idx := strings.Index(name, "."+zone); idx != -1 {
-		return name[:idx]
-	}
-	return name
 }

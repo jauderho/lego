@@ -3,7 +3,6 @@ package tencentcloud
 import (
 	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/go-acme/lego/v4/challenge/dns01"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
@@ -32,14 +31,15 @@ func (d *DNSProvider) getHostedZone(domain string) (*dnspod.DomainListItem, erro
 		request.Offset = common.Int64Ptr(int64(len(domains)))
 	}
 
-	authZone, err := dns01.FindZoneByFqdn(dns01.ToFqdn(domain))
+	authZone, err := dns01.FindZoneByFqdn(domain)
 	if err != nil {
 		return nil, err
 	}
 
 	var hostedZone *dnspod.DomainListItem
 	for _, zone := range domains {
-		if *zone.Name == dns01.UnFqdn(authZone) {
+		unfqdn := dns01.UnFqdn(authZone)
+		if *zone.Name == unfqdn || *zone.Punycode == unfqdn {
 			hostedZone = zone
 		}
 	}
@@ -84,9 +84,10 @@ func extractRecordName(fqdn, zone string) (string, error) {
 		return "", fmt.Errorf("fail to convert punycode: %w", err)
 	}
 
-	name := dns01.UnFqdn(fqdn)
-	if idx := strings.Index(name, "."+asciiDomain); idx != -1 {
-		return name[:idx], nil
+	subDomain, err := dns01.ExtractSubDomain(fqdn, asciiDomain)
+	if err != nil {
+		return "", err
 	}
-	return name, nil
+
+	return subDomain, nil
 }
