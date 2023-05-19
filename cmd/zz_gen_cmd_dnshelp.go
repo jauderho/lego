@@ -33,6 +33,7 @@ func allDNSCodes() string {
 		"cloudxns",
 		"conoha",
 		"constellix",
+		"derak",
 		"desec",
 		"designate",
 		"digitalocean",
@@ -335,7 +336,7 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 	case "brandit":
 		// generated from: providers/dns/brandit/brandit.toml
-		ew.writeln(`Configuration for BRANDIT.`)
+		ew.writeln(`Configuration for Brandit.`)
 		ew.writeln(`Code:	'brandit'`)
 		ew.writeln(`Since:	'v4.11.0'`)
 		ew.writeln()
@@ -548,6 +549,27 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/constellix`)
+
+	case "derak":
+		// generated from: providers/dns/derak/derak.toml
+		ew.writeln(`Configuration for Derak Cloud.`)
+		ew.writeln(`Code:	'derak'`)
+		ew.writeln(`Since:	'v4.12.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "DERAK_API_KEY":	The API key`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "DERAK_HTTP_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "DERAK_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "DERAK_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "DERAK_TTL":	The TTL of the TXT record used for the DNS challenge`)
+		ew.writeln(`	- "DERAK_WEBSITE_ID":	Force the zone/website ID`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/derak`)
 
 	case "desec":
 		// generated from: providers/dns/desec/desec.toml
@@ -2053,7 +2075,7 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 		ew.writeln(`Credentials:`)
 		ew.writeln(`	- "AWS_ACCESS_KEY_ID":	Managed by the AWS client. Access key ID ('AWS_ACCESS_KEY_ID_FILE' is not supported, use 'AWS_SHARED_CREDENTIALS_FILE' instead)`)
-		ew.writeln(`	- "AWS_ASSUME_ROLE_ARN":	Managed by the AWS Role ARN ('AWS_ASSUME_ROLE_ARN' is not supported)`)
+		ew.writeln(`	- "AWS_ASSUME_ROLE_ARN":	Managed by the AWS Role ARN ('AWS_ASSUME_ROLE_ARN_FILE' is not supported)`)
 		ew.writeln(`	- "AWS_HOSTED_ZONE_ID":	Override the hosted zone ID.`)
 		ew.writeln(`	- "AWS_PROFILE":	Managed by the AWS client ('AWS_PROFILE_FILE' is not supported)`)
 		ew.writeln(`	- "AWS_REGION":	Managed by the AWS client ('AWS_REGION_FILE' is not supported)`)
