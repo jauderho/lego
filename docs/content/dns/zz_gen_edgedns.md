@@ -62,7 +62,7 @@ More information [here]({{< ref "dns#configuration-and-credentials" >}}).
 The environment variable names can be suffixed by `_FILE` to reference a file instead of a value.
 More information [here]({{< ref "dns#configuration-and-credentials" >}}).
 
-Akamai credentials are automatically detected in the following locations and prioritized in the following order:
+Akamai's credentials are automatically detected in the following locations and prioritized in the following order:
 
 1. Section-specific environment variables (where `{SECTION}` is specified using `AKAMAI_EDGERC_SECTION`):
   - `AKAMAI_{SECTION}_HOST`
@@ -87,7 +87,7 @@ See also:
 - [Setting up Akamai credentials](https://developer.akamai.com/api/getting-started)
 - [.edgerc Format](https://developer.akamai.com/legacy/introduction/Conf_Client.html#edgercformat)
 - [API Client Authentication](https://developer.akamai.com/legacy/introduction/Client_Auth.html)
-- [Config from Env](https://github.com/akamai/AkamaiOPEN-edgegrid-golang/blob/master/edgegrid/config.go#L118)
+- [Config from Env](https://github.com/akamai/AkamaiOPEN-edgegrid-golang/blob/master/pkg/edgegrid/config.go#L118)
 
 
 

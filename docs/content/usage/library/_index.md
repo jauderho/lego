@@ -4,13 +4,13 @@ date: 2019-03-03T16:39:46+01:00
 draft: false
 ---
 
-Lego can be use as a Go Library.
+Lego can be used as a Go Library.
 
 <!--more-->
 
 ## GoDoc
 
-The GoDoc can be found here: [GoDoc](https://pkg.go.dev/mod/github.com/go-acme/lego/v4).
+The GoDoc can be found here: [Go Reference](https://pkg.go.dev/github.com/go-acme/lego/v4).
 
 ## Usage
 

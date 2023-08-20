@@ -42,6 +42,7 @@ AWS_HOSTED_ZONE_ID=your_hosted_zone_id \
 |-----------------------|-------------|
 | `AWS_ACCESS_KEY_ID` | Managed by the AWS client. Access key ID (`AWS_ACCESS_KEY_ID_FILE` is not supported, use `AWS_SHARED_CREDENTIALS_FILE` instead) |
 | `AWS_ASSUME_ROLE_ARN` | Managed by the AWS Role ARN (`AWS_ASSUME_ROLE_ARN_FILE` is not supported) |
+| `AWS_EXTERNAL_ID` | Managed by STS AssumeRole API operation (`AWS_EXTERNAL_ID_FILE` is not supported) |
 | `AWS_HOSTED_ZONE_ID` | Override the hosted zone ID. |
 | `AWS_PROFILE` | Managed by the AWS client (`AWS_PROFILE_FILE` is not supported) |
 | `AWS_REGION` | Managed by the AWS client (`AWS_REGION_FILE` is not supported) |
@@ -122,7 +123,7 @@ so it is recommended to narrow them down as much as possible if you are using th
 
 ### Least privilege policy for production purposes
 
-The following AWS IAM policy document describes least privilege permissions required for lego to complete the DNS challenge.
+The following AWS IAM policy document describes the least privilege permissions required for lego to complete the DNS challenge.
 Write access is limited to a specified hosted zone's DNS TXT records with a key of `_acme-challenge.example.com`.
 Replace `Z11111112222222333333` with your hosted zone ID and `example.com` with your domain name to use this policy.
 
@@ -177,7 +178,7 @@ Replace `Z11111112222222333333` with your hosted zone ID and `example.com` with 
 ## More information
 
 - [API documentation](https://docs.aws.amazon.com/Route53/latest/APIReference/API_Operations_Amazon_Route_53.html)
-- [Go client](https://github.com/aws/aws-sdk-go/aws)
+- [Go client](https://github.com/aws/aws-sdk-go-v2)
 
 <!-- THIS DOCUMENTATION IS AUTO-GENERATED. PLEASE DO NOT EDIT. -->
 <!-- providers/dns/route53/route53.toml -->

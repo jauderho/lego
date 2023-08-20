@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"time"
+
 	"github.com/go-acme/lego/v4/lego"
 	"github.com/urfave/cli/v2"
 	"software.sslmate.com/src/go-pkcs12"
@@ -35,16 +37,19 @@ func CreateFlags(defaultPath string) []cli.Flag {
 			Usage:   "Certificate signing request filename, if an external CSR is to be used.",
 		},
 		&cli.BoolFlag{
-			Name:  "eab",
-			Usage: "Use External Account Binding for account registration. Requires --kid and --hmac.",
+			Name:    "eab",
+			EnvVars: []string{"LEGO_EAB"},
+			Usage:   "Use External Account Binding for account registration. Requires --kid and --hmac.",
 		},
 		&cli.StringFlag{
-			Name:  "kid",
-			Usage: "Key identifier from External CA. Used for External Account Binding.",
+			Name:    "kid",
+			EnvVars: []string{"LEGO_EAB_KID"},
+			Usage:   "Key identifier from External CA. Used for External Account Binding.",
 		},
 		&cli.StringFlag{
-			Name:  "hmac",
-			Usage: "MAC key from External CA. Should be in Base64 URL Encoding without padding format. Used for External Account Binding.",
+			Name:    "hmac",
+			EnvVars: []string{"LEGO_EAB_HMAC"},
+			Usage:   "MAC key from External CA. Should be in Base64 URL Encoding without padding format. Used for External Account Binding.",
 		},
 		&cli.StringFlag{
 			Name:    "key-type",
@@ -84,6 +89,10 @@ func CreateFlags(defaultPath string) []cli.Flag {
 		&cli.StringSliceFlag{
 			Name:  "http.memcached-host",
 			Usage: "Set the memcached host(s) to use for HTTP-01 based challenges. Challenges will be written to all specified hosts.",
+		},
+		&cli.StringFlag{
+			Name:  "http.s3-bucket",
+			Usage: "Set the S3 bucket name to use for HTTP-01 based challenges. Challenges will be written to the S3 bucket.",
 		},
 		&cli.BoolFlag{
 			Name:  "tls",
@@ -141,4 +150,12 @@ func CreateFlags(defaultPath string) []cli.Flag {
 			Usage: "Add to the user-agent sent to the CA to identify an application embedding lego-cli",
 		},
 	}
+}
+
+func getTime(ctx *cli.Context, name string) time.Time {
+	value := ctx.Timestamp(name)
+	if value == nil {
+		return time.Time{}
+	}
+	return *value
 }
