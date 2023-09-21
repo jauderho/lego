@@ -66,6 +66,7 @@ func allDNSCodes() string {
 		"hetzner",
 		"hostingde",
 		"hosttech",
+		"httpnet",
 		"httpreq",
 		"hurricane",
 		"hyperone",
@@ -1070,7 +1071,8 @@ func displayDNSHelp(w io.Writer, name string) error {
 		ew.writeln()
 
 		ew.writeln(`Credentials:`)
-		ew.writeln(`	- "GANDIV5_API_KEY":	API key`)
+		ew.writeln(`	- "GANDIV5_API_KEY":	API key (Deprecated)`)
+		ew.writeln(`	- "GANDIV5_PERSONAL_ACCESS_TOKEN":	Personal Access Token`)
 		ew.writeln()
 
 		ew.writeln(`Additional Configuration:`)
@@ -1247,6 +1249,27 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/hosttech`)
+
+	case "httpnet":
+		// generated from: providers/dns/httpnet/httpnet.toml
+		ew.writeln(`Configuration for http.net.`)
+		ew.writeln(`Code:	'httpnet'`)
+		ew.writeln(`Since:	'v4.15.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "HTTPNET_API_KEY":	API key`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "HTTPNET_HTTP_TIMEOUT":	API request timeout`)
+		ew.writeln(`	- "HTTPNET_POLLING_INTERVAL":	Time between DNS propagation check`)
+		ew.writeln(`	- "HTTPNET_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
+		ew.writeln(`	- "HTTPNET_TTL":	The TTL of the TXT record used for the DNS challenge`)
+		ew.writeln(`	- "HTTPNET_ZONE_NAME":	Zone name in ACE format`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/httpnet`)
 
 	case "httpreq":
 		// generated from: providers/dns/httpreq/httpreq.toml
@@ -1490,7 +1513,6 @@ func displayDNSHelp(w io.Writer, name string) error {
 		ew.writeln(`	- "IPV64_HTTP_TIMEOUT":	API request timeout`)
 		ew.writeln(`	- "IPV64_POLLING_INTERVAL":	Time between DNS propagation check`)
 		ew.writeln(`	- "IPV64_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation`)
-		ew.writeln(`	- "IPV64_SEQUENCE_INTERVAL":	Time between sequential requests`)
 		ew.writeln(`	- "IPV64_TTL":	The TTL of the TXT record used for the DNS challenge`)
 
 		ew.writeln()
