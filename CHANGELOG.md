@@ -1,5 +1,52 @@
 # Changelog
 
+## [v4.17.3] - 2024-05-28
+
+### Added
+
+- **[dnsprovider]** Add DNS provider for Selectel v2
+- **[dnsprovider]** route53: adds option to not wait for changes
+- **[dnsprovider]** ovh: add OAuth2 authentication
+- **[dnsprovider]** azuredns: use TenantID also for cli authentication
+- **[dnsprovider]** godaddy: documentation about new API limitations
+- **[cli]** feat: add LEGO_ISSUER_CERT_PATH to hook
+
+### Changed
+
+- **[dnsprovider]** dode: update API URL
+- **[dnsprovider]** exec: stream command output
+- **[dnsprovider]** oracle: update API client
+- **[dnsprovider]** azuredns: servicediscovery for zones
+- **[dnsprovider]** scaleway: add alternative env var names
+- **[dnsprovider]** exoscale: simplify record creation
+- **[dnsprovider]** httpnet: add provider to NewDNSChallengeProviderByName
+- **[cli]** feat: fills LEGO_CERT_PFX_PATH and LEGO_CERT_PEM_PATH only when needed
+- **[lib,ari]** feat: renewal retry after value
+
+### Fixed
+
+- **[dnsprovider]** pdns: reconstruct zone URLs to enable non-root folder API endpoints
+- **[dnsprovider]** alidns: fix link to API documentation
+
+## [v4.17.2] - 2024-05-28
+
+Canceled due to a release failure related to Snapcraft.
+
+The Snapcraft release are disabled for now.
+
+## [v4.17.1] - 2024-05-28
+
+Canceled due to a release failure related to oci-go-sdk.
+
+The module `github.com/oracle/oci-go-sdk/v65` uses `github.com/gofrs/flock` but flock doesn't support some platform (like Solaris):
+- https://github.com/gofrs/flock/issues/60
+
+Due to that we will remove the Solaris build.
+
+## [v4.17.0] - 2024-05-28
+
+Canceled due to a release failure related to Snapcraft.
+
 ## [v4.16.1] - 2024-03-10
 
 ### Fixed
