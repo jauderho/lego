@@ -1,5 +1,11 @@
 # Changelog
 
+## [v4.17.4] - 2024-06-12
+
+### Fixed
+
+- **[dnsprovider]** Update dependencies
+
 ## [v4.17.3] - 2024-05-28
 
 ### Added
