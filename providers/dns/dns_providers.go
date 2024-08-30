@@ -76,12 +76,14 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/joker"
 	"github.com/go-acme/lego/v4/providers/dns/liara"
 	"github.com/go-acme/lego/v4/providers/dns/lightsail"
+	"github.com/go-acme/lego/v4/providers/dns/limacity"
 	"github.com/go-acme/lego/v4/providers/dns/linode"
 	"github.com/go-acme/lego/v4/providers/dns/liquidweb"
 	"github.com/go-acme/lego/v4/providers/dns/loopia"
 	"github.com/go-acme/lego/v4/providers/dns/luadns"
 	"github.com/go-acme/lego/v4/providers/dns/mailinabox"
 	"github.com/go-acme/lego/v4/providers/dns/metaname"
+	"github.com/go-acme/lego/v4/providers/dns/mijnhost"
 	"github.com/go-acme/lego/v4/providers/dns/mydnsjp"
 	"github.com/go-acme/lego/v4/providers/dns/mythicbeasts"
 	"github.com/go-acme/lego/v4/providers/dns/namecheap"
@@ -283,6 +285,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return liara.NewDNSProvider()
 	case "lightsail":
 		return lightsail.NewDNSProvider()
+	case "limacity":
+		return limacity.NewDNSProvider()
 	case "linode", "linodev4": // "linodev4" is for compatibility with v3, must be dropped in v5
 		return linode.NewDNSProvider()
 	case "liquidweb":
@@ -297,6 +301,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return dns01.NewDNSProviderManual()
 	case "metaname":
 		return metaname.NewDNSProvider()
+	case "mijnhost":
+		return mijnhost.NewDNSProvider()
 	case "mydnsjp":
 		return mydnsjp.NewDNSProvider()
 	case "mythicbeasts":
