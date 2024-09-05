@@ -40,7 +40,7 @@ docker run goacme/lego -h
 - [FreeBSD (Ports)](https://www.freshports.org/security/lego) (unofficial):
 
   ```bash
-  cd /usr/ports/security/lego && make install clean
+  pkg install lego
   ```
 
 - [Gentoo](https://gitweb.gentoo.org/repo/proj/guru.git/tree/app-crypt/lego) (unofficial):
@@ -62,6 +62,13 @@ docker run goacme/lego -h
   ```bash
   pkg install lego
   ```
+
+- [OpenBSD (Ports)](https://openports.pl/path/security/lego) (unofficial):
+
+  ```bash
+  pkg_add lego
+  ```
+
 
 ## From sources
 
