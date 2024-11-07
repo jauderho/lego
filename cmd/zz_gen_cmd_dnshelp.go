@@ -389,7 +389,7 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 	case "brandit":
 		// generated from: providers/dns/brandit/brandit.toml
-		ew.writeln(`Configuration for Brandit.`)
+		ew.writeln(`Configuration for Brandit (deprecated).`)
 		ew.writeln(`Code:	'brandit'`)
 		ew.writeln(`Since:	'v4.11.0'`)
 		ew.writeln()
@@ -563,7 +563,7 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 	case "cloudxns":
 		// generated from: providers/dns/cloudxns/cloudxns.toml
-		ew.writeln(`Configuration for CloudXNS.`)
+		ew.writeln(`Configuration for CloudXNS (Deprecated).`)
 		ew.writeln(`Code:	'cloudxns'`)
 		ew.writeln(`Since:	'v0.5.0'`)
 		ew.writeln()
