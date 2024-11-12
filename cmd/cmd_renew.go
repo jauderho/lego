@@ -6,6 +6,7 @@ import (
 	"errors"
 	"math/rand"
 	"os"
+	"slices"
 	"time"
 
 	"github.com/go-acme/lego/v4/acme/api"
@@ -20,7 +21,7 @@ import (
 // Flag names.
 const (
 	flgDays                   = "days"
-	flgARIEnable              = "ari-enable"
+	flgARIDisable             = "ari-disable"
 	flgARIWaitToRenewDuration = "ari-wait-to-renew-duration"
 	flgReuseKey               = "reuse-key"
 	flgRenewHook              = "renew-hook"
@@ -61,8 +62,8 @@ func createRenew() *cli.Command {
 				Usage: "The number of days left on a certificate to renew it.",
 			},
 			&cli.BoolFlag{
-				Name:  flgARIEnable,
-				Usage: "Use the renewalInfo endpoint (draft-ietf-acme-ari) to check if a certificate should be renewed.",
+				Name:  flgARIDisable,
+				Usage: "Do not use the renewalInfo endpoint (draft-ietf-acme-ari) to check if a certificate should be renewed.",
 			},
 			&cli.DurationFlag{
 				Name:  flgARIWaitToRenewDuration,
@@ -151,15 +152,23 @@ func renewForDomains(ctx *cli.Context, client *lego.Client, certsStorage *Certif
 	cert := certificates[0]
 
 	var ariRenewalTime *time.Time
-	if ctx.Bool(flgARIEnable) {
+	var replacesCertID string
+
+	if !ctx.Bool(flgARIDisable) {
 		ariRenewalTime = getARIRenewalTime(ctx, cert, domain, client)
 		if ariRenewalTime != nil {
 			now := time.Now().UTC()
+
 			// Figure out if we need to sleep before renewing.
 			if ariRenewalTime.After(now) {
 				log.Infof("[%s] Sleeping %s until renewal time %s", domain, ariRenewalTime.Sub(now), ariRenewalTime)
 				time.Sleep(ariRenewalTime.Sub(now))
 			}
+		}
+
+		replacesCertID, err = certificate.MakeARICertID(cert)
+		if err != nil {
+			log.Fatalf("Error while construction the ARI CertID for domain %s\n\t%v", domain, err)
 		}
 	}
 
@@ -209,11 +218,8 @@ func renewForDomains(ctx *cli.Context, client *lego.Client, certsStorage *Certif
 		AlwaysDeactivateAuthorizations: ctx.Bool(flgAlwaysDeactivateAuthorizations),
 	}
 
-	if ctx.Bool(flgARIEnable) {
-		request.ReplacesCertID, err = certificate.MakeARICertID(cert)
-		if err != nil {
-			log.Fatalf("Error while construction the ARI CertID for domain %s\n\t%v", domain, err)
-		}
+	if replacesCertID != "" {
+		request.ReplacesCertID = replacesCertID
 	}
 
 	certRes, err := client.Certificate.Obtain(request)
@@ -250,15 +256,23 @@ func renewForCSR(ctx *cli.Context, client *lego.Client, certsStorage *Certificat
 	cert := certificates[0]
 
 	var ariRenewalTime *time.Time
-	if ctx.Bool(flgARIEnable) {
+	var replacesCertID string
+
+	if !ctx.Bool(flgARIDisable) {
 		ariRenewalTime = getARIRenewalTime(ctx, cert, domain, client)
 		if ariRenewalTime != nil {
 			now := time.Now().UTC()
+
 			// Figure out if we need to sleep before renewing.
 			if ariRenewalTime.After(now) {
 				log.Infof("[%s] Sleeping %s until renewal time %s", domain, ariRenewalTime.Sub(now), ariRenewalTime)
 				time.Sleep(ariRenewalTime.Sub(now))
 			}
+		}
+
+		replacesCertID, err = certificate.MakeARICertID(cert)
+		if err != nil {
+			log.Fatalf("Error while construction the ARI CertID for domain %s\n\t%v", domain, err)
 		}
 	}
 
@@ -279,11 +293,8 @@ func renewForCSR(ctx *cli.Context, client *lego.Client, certsStorage *Certificat
 		AlwaysDeactivateAuthorizations: ctx.Bool(flgAlwaysDeactivateAuthorizations),
 	}
 
-	if ctx.Bool(flgARIEnable) {
-		request.ReplacesCertID, err = certificate.MakeARICertID(cert)
-		if err != nil {
-			log.Fatalf("Error while construction the ARI CertID for domain %s\n\t%v", domain, err)
-		}
+	if replacesCertID != "" {
+		request.ReplacesCertID = replacesCertID
 	}
 
 	certRes, err := client.Certificate.ObtainForCSR(request)
@@ -367,16 +378,12 @@ func addPathToMetadata(meta map[string]string, domain string, certRes *certifica
 
 func merge(prevDomains, nextDomains []string) []string {
 	for _, next := range nextDomains {
-		var found bool
-		for _, prev := range prevDomains {
-			if prev == next {
-				found = true
-				break
-			}
+		if slices.Contains(prevDomains, next) {
+			continue
 		}
-		if !found {
-			prevDomains = append(prevDomains, next)
-		}
+
+		prevDomains = append(prevDomains, next)
 	}
+
 	return prevDomains
 }
