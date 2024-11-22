@@ -1,5 +1,17 @@
 # Changelog
 
+## [v4.20.4](https://github.com/go-acme/lego/releases/tag/v4.20.4) (2024-11-21)
+
+Publish the Snap to the Snapcraft stable channel.
+
+## [v4.20.3](https://github.com/go-acme/lego/releases/tag/v4.20.3) (2024-11-21)
+
+### Fixed
+
+- **[dnsprovider]** technitium: fix status code handling
+- **[dnsprovider]** directadmin: fix timeout configuration
+- **[httpprovider]** fix: HTTP server IPv6 matching
+
 ## [v4.20.2](https://github.com/go-acme/lego/releases/tag/v4.20.2) (2024-11-11)
 
 ### Added
