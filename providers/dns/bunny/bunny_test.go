@@ -4,6 +4,9 @@ import (
 	"testing"
 
 	"github.com/go-acme/lego/v4/platform/tester"
+	"github.com/go-acme/lego/v4/providers/dns/internal/ptr"
+	"github.com/nrdcg/bunny-go"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -122,4 +125,118 @@ func TestLiveCleanUp(t *testing.T) {
 
 	err = provider.CleanUp(envTest.GetDomain(), "", "123d==")
 	require.NoError(t, err)
+}
+
+func Test_findZone(t *testing.T) {
+	testCases := []struct {
+		desc     string
+		domain   string
+		items    []*bunny.DNSZone
+		expected *bunny.DNSZone
+	}{
+		{
+			desc:   "found subdomain",
+			domain: "_acme-challenge.foo.bar.example.com",
+			items: []*bunny.DNSZone{
+				{ID: ptr.Pointer[int64](1), Domain: ptr.Pointer("example.com")},
+				{ID: ptr.Pointer[int64](2), Domain: ptr.Pointer("example.org")},
+				{ID: ptr.Pointer[int64](4), Domain: ptr.Pointer("bar.example.org")},
+				{ID: ptr.Pointer[int64](5), Domain: ptr.Pointer("bar.example.com")},
+				{ID: ptr.Pointer[int64](6), Domain: ptr.Pointer("foo.example.com")},
+			},
+			expected: &bunny.DNSZone{
+				ID:     ptr.Pointer[int64](5),
+				Domain: ptr.Pointer("bar.example.com"),
+			},
+		},
+		{
+			desc:   "found the longest subdomain",
+			domain: "_acme-challenge.foo.bar.example.com",
+			items: []*bunny.DNSZone{
+				{ID: ptr.Pointer[int64](7), Domain: ptr.Pointer("foo.bar.example.com")},
+				{ID: ptr.Pointer[int64](1), Domain: ptr.Pointer("example.com")},
+				{ID: ptr.Pointer[int64](2), Domain: ptr.Pointer("example.org")},
+				{ID: ptr.Pointer[int64](4), Domain: ptr.Pointer("bar.example.org")},
+				{ID: ptr.Pointer[int64](5), Domain: ptr.Pointer("bar.example.com")},
+				{ID: ptr.Pointer[int64](6), Domain: ptr.Pointer("foo.example.com")},
+			},
+			expected: &bunny.DNSZone{
+				ID:     ptr.Pointer[int64](7),
+				Domain: ptr.Pointer("foo.bar.example.com"),
+			},
+		},
+		{
+			desc:   "found apex",
+			domain: "_acme-challenge.foo.bar.example.com",
+			items: []*bunny.DNSZone{
+				{ID: ptr.Pointer[int64](1), Domain: ptr.Pointer("example.com")},
+				{ID: ptr.Pointer[int64](2), Domain: ptr.Pointer("example.org")},
+				{ID: ptr.Pointer[int64](4), Domain: ptr.Pointer("bar.example.org")},
+				{ID: ptr.Pointer[int64](6), Domain: ptr.Pointer("foo.example.com")},
+			},
+			expected: &bunny.DNSZone{
+				ID:     ptr.Pointer[int64](1),
+				Domain: ptr.Pointer("example.com"),
+			},
+		},
+		{
+			desc:   "not found",
+			domain: "_acme-challenge.foo.bar.example.com",
+			items: []*bunny.DNSZone{
+				{ID: ptr.Pointer[int64](2), Domain: ptr.Pointer("example.org")},
+				{ID: ptr.Pointer[int64](4), Domain: ptr.Pointer("bar.example.org")},
+				{ID: ptr.Pointer[int64](6), Domain: ptr.Pointer("foo.example.com")},
+			},
+		},
+	}
+
+	for _, test := range testCases {
+		t.Run(test.desc, func(t *testing.T) {
+			t.Parallel()
+
+			zones := &bunny.DNSZones{Items: test.items}
+
+			zone := findZone(zones, test.domain)
+
+			assert.Equal(t, test.expected, zone)
+		})
+	}
+}
+
+func Test_possibleDomains(t *testing.T) {
+	testCases := []struct {
+		desc     string
+		domain   string
+		expected []string
+	}{
+		{
+			desc:     "apex",
+			domain:   "example.com",
+			expected: []string{"example.com"},
+		},
+		{
+			desc:     "CCTLD",
+			domain:   "example.co.uk",
+			expected: []string{"example.co.uk"},
+		},
+		{
+			desc:     "long domain",
+			domain:   "_acme-challenge.foo.bar.example.com",
+			expected: []string{"_acme-challenge.foo.bar.example.com", "foo.bar.example.com", "bar.example.com", "example.com"},
+		},
+		{
+			desc:   "empty",
+			domain: "",
+		},
+	}
+
+	for _, test := range testCases {
+		t.Run(test.desc, func(t *testing.T) {
+			t.Parallel()
+
+			domains := possibleDomains(test.domain)
+
+			assert.Equal(t, test.expected, domains)
+		})
+	}
 }
