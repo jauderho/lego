@@ -1,4 +1,4 @@
-package websupport
+package active24
 
 import (
 	"testing"
@@ -30,7 +30,7 @@ func TestNewDNSProvider(t *testing.T) {
 				EnvAPIKey: "",
 				EnvSecret: "secret",
 			},
-			expected: "websupport: some credentials information are missing: WEBSUPPORT_API_KEY",
+			expected: "active24: some credentials information are missing: ACTIVE24_API_KEY",
 		},
 		{
 			desc: "missing secret",
@@ -38,12 +38,12 @@ func TestNewDNSProvider(t *testing.T) {
 				EnvAPIKey: "user",
 				EnvSecret: "",
 			},
-			expected: "websupport: some credentials information are missing: WEBSUPPORT_SECRET",
+			expected: "active24: some credentials information are missing: ACTIVE24_SECRET",
 		},
 		{
 			desc:     "missing credentials",
 			envVars:  map[string]string{},
-			expected: "websupport: some credentials information are missing: WEBSUPPORT_API_KEY,WEBSUPPORT_SECRET",
+			expected: "active24: some credentials information are missing: ACTIVE24_API_KEY,ACTIVE24_SECRET",
 		},
 	}
 
@@ -84,17 +84,17 @@ func TestNewDNSProviderConfig(t *testing.T) {
 			desc:     "missing API key",
 			apiKey:   "",
 			secret:   "secret",
-			expected: "websupport: credentials missing",
+			expected: "active24: credentials missing",
 		},
 		{
 			desc:     "missing secret",
 			apiKey:   "user",
 			secret:   "",
-			expected: "websupport: credentials missing",
+			expected: "active24: credentials missing",
 		},
 		{
 			desc:     "missing credentials",
-			expected: "websupport: credentials missing",
+			expected: "active24: credentials missing",
 		},
 	}
 

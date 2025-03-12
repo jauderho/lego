@@ -1,5 +1,5 @@
-// Package websupport implements a DNS provider for solving the DNS-01 challenge using Websupport.
-package websupport
+// Package active24 implements a DNS provider for solving the DNS-01 challenge using Active24.
+package active24
 
 import (
 	"context"
@@ -14,11 +14,11 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/internal/active24"
 )
 
-const baseAPIDomain = "websupport.sk"
+const baseAPIDomain = "active24.cz"
 
 // Environment variables names.
 const (
-	envNamespace = "WEBSUPPORT_"
+	envNamespace = "ACTIVE24_"
 
 	EnvAPIKey = envNamespace + "API_KEY"
 	EnvSecret = envNamespace + "SECRET"
@@ -58,12 +58,11 @@ type DNSProvider struct {
 	client *active24.Client
 }
 
-// NewDNSProvider returns a DNSProvider instance configured for Websupport.
-// Credentials must be passed in the environment variables: WEBSUPPORT_API_KEY, WEBSUPPORT_SECRET.
+// NewDNSProvider returns a DNSProvider instance configured for Active24.
 func NewDNSProvider() (*DNSProvider, error) {
 	values, err := env.Get(EnvAPIKey, EnvSecret)
 	if err != nil {
-		return nil, fmt.Errorf("websupport: %w", err)
+		return nil, fmt.Errorf("active24: %w", err)
 	}
 
 	config := NewDefaultConfig()
@@ -73,15 +72,15 @@ func NewDNSProvider() (*DNSProvider, error) {
 	return NewDNSProviderConfig(config)
 }
 
-// NewDNSProviderConfig return a DNSProvider instance configured for Websupport.
+// NewDNSProviderConfig return a DNSProvider instance configured for Active24.
 func NewDNSProviderConfig(config *Config) (*DNSProvider, error) {
 	if config == nil {
-		return nil, errors.New("websupport: the configuration of the DNS provider is nil")
+		return nil, errors.New("active24: the configuration of the DNS provider is nil")
 	}
 
 	client, err := active24.NewClient(baseAPIDomain, config.APIKey, config.Secret)
 	if err != nil {
-		return nil, fmt.Errorf("websupport: %w", err)
+		return nil, fmt.Errorf("active24: %w", err)
 	}
 
 	if config.HTTPClient != nil {
@@ -102,17 +101,17 @@ func (d *DNSProvider) Present(domain, token, keyAuth string) error {
 
 	authZone, err := dns01.FindZoneByFqdn(info.EffectiveFQDN)
 	if err != nil {
-		return fmt.Errorf("websupport: could not find zone for domain %q: %w", domain, err)
+		return fmt.Errorf("active24: could not find zone for domain %q: %w", domain, err)
 	}
 
 	subDomain, err := dns01.ExtractSubDomain(info.EffectiveFQDN, authZone)
 	if err != nil {
-		return fmt.Errorf("websupport: %w", err)
+		return fmt.Errorf("active24: %w", err)
 	}
 
 	serviceID, err := d.findServiceID(ctx, dns01.UnFqdn(authZone))
 	if err != nil {
-		return fmt.Errorf("websupport: find service ID: %w", err)
+		return fmt.Errorf("active24: find service ID: %w", err)
 	}
 
 	record := active24.Record{
@@ -124,7 +123,7 @@ func (d *DNSProvider) Present(domain, token, keyAuth string) error {
 
 	err = d.client.CreateRecord(ctx, strconv.Itoa(serviceID), record)
 	if err != nil {
-		return fmt.Errorf("websupport: create record: %w", err)
+		return fmt.Errorf("active24: create record: %w", err)
 	}
 
 	return nil
@@ -138,22 +137,22 @@ func (d *DNSProvider) CleanUp(domain, token, keyAuth string) error {
 
 	authZone, err := dns01.FindZoneByFqdn(info.EffectiveFQDN)
 	if err != nil {
-		return fmt.Errorf("websupport: could not find zone for domain %q: %w", domain, err)
+		return fmt.Errorf("active24: could not find zone for domain %q: %w", domain, err)
 	}
 
 	serviceID, err := d.findServiceID(ctx, dns01.UnFqdn(authZone))
 	if err != nil {
-		return fmt.Errorf("websupport: find service ID: %w", err)
+		return fmt.Errorf("active24: find service ID: %w", err)
 	}
 
 	recordID, err := d.findRecordID(ctx, strconv.Itoa(serviceID), info)
 	if err != nil {
-		return fmt.Errorf("websupport: find record ID: %w", err)
+		return fmt.Errorf("active24: find record ID: %w", err)
 	}
 
 	err = d.client.DeleteRecord(ctx, strconv.Itoa(serviceID), strconv.Itoa(recordID))
 	if err != nil {
-		return fmt.Errorf("websupport: delete record %w", err)
+		return fmt.Errorf("active24: delete record %w", err)
 	}
 
 	return nil
