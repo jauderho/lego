@@ -81,10 +81,10 @@ require (
 	github.com/vultr/govultr/v3 v3.17.0
 	github.com/yandex-cloud/go-genproto v0.0.0-20250319153614-fb9d3e5eb01a
 	github.com/yandex-cloud/go-sdk v0.0.0-20250320143332-9cbcfc5de4ae
-	golang.org/x/crypto v0.36.0
-	golang.org/x/net v0.37.0
+	golang.org/x/crypto v0.38.0
+	golang.org/x/net v0.40.0
 	golang.org/x/oauth2 v0.28.0
-	golang.org/x/text v0.23.0
+	golang.org/x/text v0.25.0
 	golang.org/x/time v0.11.0
 	google.golang.org/api v0.227.0
 	gopkg.in/ns1/ns1-go.v2 v2.13.0
@@ -198,8 +198,8 @@ require (
 	go.uber.org/ratelimit v0.3.0 // indirect
 	golang.org/x/exp v0.0.0-20241210194714-1829a127f884 // indirect
 	golang.org/x/mod v0.23.0 // indirect
-	golang.org/x/sync v0.12.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/sync v0.14.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/tools v0.30.0 // indirect
 	google.golang.org/genproto v0.0.0-20241021214115-324edc3d5d38 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250106144421-5f5ef82da422 // indirect
