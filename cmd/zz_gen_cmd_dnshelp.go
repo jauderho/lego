@@ -167,6 +167,7 @@ func allDNSCodes() string {
 		"yandex",
 		"yandex360",
 		"yandexcloud",
+		"zoneedit",
 		"zoneee",
 		"zonomi",
 	}
@@ -1032,7 +1033,6 @@ func displayDNSHelp(w io.Writer, name string) error {
 		ew.writeln(`	- "DODE_POLLING_INTERVAL":	Time between DNS propagation check in seconds (Default: 2)`)
 		ew.writeln(`	- "DODE_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation in seconds (Default: 60)`)
 		ew.writeln(`	- "DODE_SEQUENCE_INTERVAL":	Time between sequential requests in seconds (Default: 60)`)
-		ew.writeln(`	- "DODE_TTL":	The TTL of the TXT record used for the DNS challenge in seconds (Default: 120)`)
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/dode`)
@@ -1092,7 +1092,6 @@ func displayDNSHelp(w io.Writer, name string) error {
 		ew.writeln(`	- "DUCKDNS_POLLING_INTERVAL":	Time between DNS propagation check in seconds (Default: 2)`)
 		ew.writeln(`	- "DUCKDNS_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation in seconds (Default: 60)`)
 		ew.writeln(`	- "DUCKDNS_SEQUENCE_INTERVAL":	Time between sequential requests in seconds (Default: 60)`)
-		ew.writeln(`	- "DUCKDNS_TTL":	The TTL of the TXT record used for the DNS challenge in seconds (Default: 120)`)
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/duckdns`)
@@ -3487,6 +3486,26 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/yandexcloud`)
+
+	case "zoneedit":
+		// generated from: providers/dns/zoneedit/zoneedit.toml
+		ew.writeln(`Configuration for ZoneEdit.`)
+		ew.writeln(`Code:	'zoneedit'`)
+		ew.writeln(`Since:	'v4.25.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "ZONEEDIT_AUTH_TOKEN":	Authentication token`)
+		ew.writeln(`	- "ZONEEDIT_USER":	User ID`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "ZONEEDIT_HTTP_TIMEOUT":	API request timeout in seconds (Default: 30)`)
+		ew.writeln(`	- "ZONEEDIT_POLLING_INTERVAL":	Time between DNS propagation check in seconds (Default: 2)`)
+		ew.writeln(`	- "ZONEEDIT_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation in seconds (Default: 60)`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/zoneedit`)
 
 	case "zoneee":
 		// generated from: providers/dns/zoneee/zoneee.toml
