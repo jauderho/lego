@@ -16,7 +16,6 @@ require (
 	github.com/BurntSushi/toml v1.5.0
 	github.com/OpenDNS/vegadns2client v0.0.0-20180418235048-a3fa4a771d87
 	github.com/akamai/AkamaiOPEN-edgegrid-golang v1.2.2
-	github.com/alibabacloud-go/alidns-20150109/v4 v4.5.10
 	github.com/alibabacloud-go/darabonba-openapi/v2 v2.0.11
 	github.com/aliyun/credentials-go v1.4.5
 	github.com/aws/aws-sdk-go-v2 v1.36.3
@@ -31,6 +30,8 @@ require (
 	github.com/cenkalti/backoff/v4 v4.3.0
 	github.com/dnsimple/dnsimple-go/v4 v4.0.0
 	github.com/exoscale/egoscale/v3 v3.1.13
+	github.com/go-acme/alidns-20150109/v4 v4.5.10
+	github.com/go-acme/tencentclouddnspod v1.0.1208
 	github.com/go-jose/go-jose/v4 v4.0.5
 	github.com/go-viper/mapstructure/v2 v2.2.1
 	github.com/google/go-cmp v0.7.0
@@ -75,8 +76,7 @@ require (
 	github.com/selectel/go-selvpcclient/v4 v4.1.0
 	github.com/softlayer/softlayer-go v1.1.7
 	github.com/stretchr/testify v1.10.0
-	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.1128
-	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/dnspod v1.0.1128
+	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.1208
 	github.com/transip/gotransip/v6 v6.26.0
 	github.com/ultradns/ultradns-go-sdk v1.8.0-20241010134910-243eeec
 	github.com/urfave/cli/v2 v2.27.6
