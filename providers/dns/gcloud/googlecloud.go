@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/compute/metadata"
+	"github.com/cenkalti/backoff/v5"
 	"github.com/go-acme/lego/v4/challenge"
 	"github.com/go-acme/lego/v4/challenge/dns01"
 	"github.com/go-acme/lego/v4/log"
@@ -181,6 +182,8 @@ func NewDNSProviderConfig(config *Config) (*DNSProvider, error) {
 
 // Present creates a TXT record to fulfill the dns-01 challenge.
 func (d *DNSProvider) Present(domain, token, keyAuth string) error {
+	ctx := context.Background()
+
 	info := dns01.GetChallengeInfo(domain, keyAuth)
 
 	zone, err := d.getHostedZone(info.EffectiveFQDN)
@@ -210,7 +213,7 @@ func (d *DNSProvider) Present(domain, token, keyAuth string) error {
 
 	// Attempt to delete the existing records before adding the new one.
 	if len(existingRrSet) > 0 {
-		if err = d.applyChanges(zone, &gdns.Change{Deletions: existingRrSet}); err != nil {
+		if err = d.applyChanges(ctx, zone, &gdns.Change{Deletions: existingRrSet}); err != nil {
 			return fmt.Errorf("googlecloud: %w", err)
 		}
 	}
@@ -235,14 +238,14 @@ func (d *DNSProvider) Present(domain, token, keyAuth string) error {
 		Additions: []*gdns.ResourceRecordSet{rec},
 	}
 
-	if err = d.applyChanges(zone, change); err != nil {
+	if err = d.applyChanges(ctx, zone, change); err != nil {
 		return fmt.Errorf("googlecloud: %w", err)
 	}
 
 	return nil
 }
 
-func (d *DNSProvider) applyChanges(zone string, change *gdns.Change) error {
+func (d *DNSProvider) applyChanges(ctx context.Context, zone string, change *gdns.Change) error {
 	if d.config.Debug {
 		data, _ := json.Marshal(change)
 		log.Printf("change (Create): %s", string(data))
@@ -266,24 +269,28 @@ func (d *DNSProvider) applyChanges(zone string, change *gdns.Change) error {
 	chgID := chg.Id
 
 	// wait for change to be acknowledged
-	return wait.For("apply change", 30*time.Second, 3*time.Second, func() (bool, error) {
-		if d.config.Debug {
-			data, _ := json.Marshal(change)
-			log.Printf("change (Get): %s", string(data))
-		}
+	return wait.Retry(ctx,
+		func() error {
+			if d.config.Debug {
+				data, _ := json.Marshal(change)
+				log.Printf("change (Get): %s", string(data))
+			}
 
-		chg, err = d.client.Changes.Get(d.config.Project, zone, chgID).Do()
-		if err != nil {
-			data, _ := json.Marshal(change)
-			return false, fmt.Errorf("failed to get changes [zone %s, change %s]: %w", zone, string(data), err)
-		}
+			chg, err = d.client.Changes.Get(d.config.Project, zone, chgID).Do()
+			if err != nil {
+				data, _ := json.Marshal(change)
+				return fmt.Errorf("failed to get changes [zone %s, change %s]: %w", zone, string(data), err)
+			}
 
-		if chg.Status == changeStatusDone {
-			return true, nil
-		}
+			if chg.Status != changeStatusDone {
+				return fmt.Errorf("status: %s", chg.Status)
+			}
 
-		return false, fmt.Errorf("status: %s", chg.Status)
-	})
+			return nil
+		},
+		backoff.WithBackOff(backoff.NewConstantBackOff(3*time.Second)),
+		backoff.WithMaxElapsedTime(30*time.Second),
+	)
 }
 
 // CleanUp removes the TXT record matching the specified parameters.
