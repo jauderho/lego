@@ -168,6 +168,7 @@ func allDNSCodes() string {
 		"vscale",
 		"vultr",
 		"webnames",
+		"webnamesca",
 		"websupport",
 		"wedos",
 		"westcn",
@@ -3513,22 +3514,43 @@ func displayDNSHelp(w io.Writer, name string) error {
 
 	case "webnames":
 		// generated from: providers/dns/webnames/webnames.toml
-		ew.writeln(`Configuration for Webnames.`)
+		ew.writeln(`Configuration for webnames.ru.`)
 		ew.writeln(`Code:	'webnames'`)
 		ew.writeln(`Since:	'v4.15.0'`)
 		ew.writeln()
 
 		ew.writeln(`Credentials:`)
-		ew.writeln(`	- "WEBNAMES_API_KEY":	Domain API key`)
+		ew.writeln(`	- "WEBNAMESRU_API_KEY":	Domain API key`)
 		ew.writeln()
 
 		ew.writeln(`Additional Configuration:`)
-		ew.writeln(`	- "WEBNAMES_HTTP_TIMEOUT":	API request timeout in seconds (Default: 30)`)
-		ew.writeln(`	- "WEBNAMES_POLLING_INTERVAL":	Time between DNS propagation check in seconds (Default: 2)`)
-		ew.writeln(`	- "WEBNAMES_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation in seconds (Default: 60)`)
+		ew.writeln(`	- "WEBNAMESRU_HTTP_TIMEOUT":	API request timeout in seconds (Default: 30)`)
+		ew.writeln(`	- "WEBNAMESRU_POLLING_INTERVAL":	Time between DNS propagation check in seconds (Default: 2)`)
+		ew.writeln(`	- "WEBNAMESRU_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation in seconds (Default: 60)`)
 
 		ew.writeln()
 		ew.writeln(`More information: https://go-acme.github.io/lego/dns/webnames`)
+
+	case "webnamesca":
+		// generated from: providers/dns/webnamesca/webnamesca.toml
+		ew.writeln(`Configuration for webnames.ca.`)
+		ew.writeln(`Code:	'webnamesca'`)
+		ew.writeln(`Since:	'v4.28.0'`)
+		ew.writeln()
+
+		ew.writeln(`Credentials:`)
+		ew.writeln(`	- "WEBNAMESCA_API_KEY":	API key`)
+		ew.writeln(`	- "WEBNAMESCA_API_USER":	API username`)
+		ew.writeln()
+
+		ew.writeln(`Additional Configuration:`)
+		ew.writeln(`	- "WEBNAMESCA_HTTP_TIMEOUT":	API request timeout in seconds (Default: 30)`)
+		ew.writeln(`	- "WEBNAMESCA_POLLING_INTERVAL":	Time between DNS propagation check in seconds (Default: 2)`)
+		ew.writeln(`	- "WEBNAMESCA_PROPAGATION_TIMEOUT":	Maximum waiting time for DNS propagation in seconds (Default: 60)`)
+		ew.writeln(`	- "WEBNAMESCA_TTL":	The TTL of the TXT record used for the DNS challenge in seconds (Default: 120)`)
+
+		ew.writeln()
+		ew.writeln(`More information: https://go-acme.github.io/lego/dns/webnamesca`)
 
 	case "websupport":
 		// generated from: providers/dns/websupport/websupport.toml
