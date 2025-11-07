@@ -19,7 +19,7 @@ jobs:
 
       # https://github.com/marketplace/actions/checkout
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
