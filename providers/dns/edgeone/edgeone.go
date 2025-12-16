@@ -26,6 +26,7 @@ const (
 	EnvSecretKey    = envNamespace + "SECRET_KEY"
 	EnvRegion       = envNamespace + "REGION"
 	EnvSessionToken = envNamespace + "SESSION_TOKEN"
+	EnvZonesMapping = envNamespace + "ZONES_MAPPING"
 
 	EnvTTL                = envNamespace + "TTL"
 	EnvPropagationTimeout = envNamespace + "PROPAGATION_TIMEOUT"
@@ -39,6 +40,8 @@ type Config struct {
 	SecretKey    string
 	Region       string
 	SessionToken string
+
+	ZonesMapping map[string]string
 
 	PropagationTimeout time.Duration
 	PollingInterval    time.Duration
@@ -78,6 +81,14 @@ func NewDNSProvider() (*DNSProvider, error) {
 	config.Region = env.GetOrDefaultString(EnvRegion, "")
 	config.SessionToken = env.GetOrDefaultString(EnvSessionToken, "")
 
+	mapping := env.GetOrDefaultString(EnvZonesMapping, "")
+	if mapping != "" {
+		config.ZonesMapping, err = env.ParsePairs(mapping)
+		if err != nil {
+			return nil, fmt.Errorf("edgeone: zones mapping: %w", err)
+		}
+	}
+
 	return NewDNSProviderConfig(config)
 }
 
@@ -108,10 +119,9 @@ func NewDNSProviderConfig(config *Config) (*DNSProvider, error) {
 	}
 
 	return &DNSProvider{
-		config:      config,
-		client:      client,
-		recordIDs:   map[string]*string{},
-		recordIDsMu: sync.Mutex{},
+		config:    config,
+		client:    client,
+		recordIDs: map[string]*string{},
 	}, nil
 }
 
@@ -121,7 +131,7 @@ func (d *DNSProvider) Present(domain, token, keyAuth string) error {
 
 	ctx := context.Background()
 
-	zone, err := d.getHostedZone(ctx, info.EffectiveFQDN)
+	zoneID, err := d.getHostedZoneID(ctx, info.EffectiveFQDN)
 	if err != nil {
 		return fmt.Errorf("edgeone: failed to get hosted zone: %w", err)
 	}
@@ -133,7 +143,7 @@ func (d *DNSProvider) Present(domain, token, keyAuth string) error {
 
 	request := teo.NewCreateDnsRecordRequest()
 	request.Name = ptr.Pointer(punnyCoded)
-	request.ZoneId = zone.ZoneId
+	request.ZoneId = zoneID
 	request.Type = ptr.Pointer("TXT")
 	request.Content = ptr.Pointer(info.Value)
 	request.TTL = ptr.Pointer(int64(d.config.TTL))
@@ -156,7 +166,7 @@ func (d *DNSProvider) CleanUp(domain, token, keyAuth string) error {
 
 	ctx := context.Background()
 
-	zone, err := d.getHostedZone(ctx, info.EffectiveFQDN)
+	zoneID, err := d.getHostedZoneID(ctx, info.EffectiveFQDN)
 	if err != nil {
 		return fmt.Errorf("edgeone: failed to get hosted zone: %w", err)
 	}
@@ -171,13 +181,17 @@ func (d *DNSProvider) CleanUp(domain, token, keyAuth string) error {
 	}
 
 	request := teo.NewDeleteDnsRecordsRequest()
-	request.ZoneId = zone.ZoneId
+	request.ZoneId = zoneID
 	request.RecordIds = []*string{recordID}
 
 	_, err = teo.DeleteDnsRecordsWithContext(ctx, d.client, request)
 	if err != nil {
 		return fmt.Errorf("edgeone: delete record failed: %w", err)
 	}
+
+	d.recordIDsMu.Lock()
+	delete(d.recordIDs, token)
+	d.recordIDsMu.Unlock()
 
 	return nil
 }

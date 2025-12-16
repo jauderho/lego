@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/go-acme/lego/v4/platform/tester"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -44,8 +43,7 @@ func TestNewDNSProvider(t *testing.T) {
 			if test.expected == "" {
 				require.NoError(t, err)
 				require.NotNil(t, p)
-				require.NotNil(t, p.config)
-				require.NotNil(t, p.client)
+				require.NotNil(t, p.prv)
 			} else {
 				require.EqualError(t, err, test.expected)
 			}
@@ -79,8 +77,7 @@ func TestNewDNSProviderConfig(t *testing.T) {
 			if test.expected == "" {
 				require.NoError(t, err)
 				require.NotNil(t, p)
-				require.NotNil(t, p.config)
-				require.NotNil(t, p.client)
+				require.NotNil(t, p.prv)
 			} else {
 				require.EqualError(t, err, test.expected)
 			}
@@ -114,31 +111,4 @@ func TestLiveCleanUp(t *testing.T) {
 
 	err = provider.CleanUp(envTest.GetDomain(), "", "123d==")
 	require.NoError(t, err)
-}
-
-func Test_extractAllZones(t *testing.T) {
-	testCases := []struct {
-		desc     string
-		fqdn     string
-		expected []string
-	}{
-		{
-			desc:     "success",
-			fqdn:     "_acme-challenge.my.test.domain.com.",
-			expected: []string{"my.test.domain.com", "test.domain.com", "domain.com"},
-		},
-		{
-			desc: "empty",
-			fqdn: "_acme-challenge.com.",
-		},
-	}
-
-	for _, test := range testCases {
-		t.Run(test.desc, func(t *testing.T) {
-			t.Parallel()
-
-			got := extractAllZones(test.fqdn)
-			assert.Equal(t, test.expected, got)
-		})
-	}
 }

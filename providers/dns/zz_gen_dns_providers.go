@@ -6,10 +6,10 @@ import (
 	"fmt"
 
 	"github.com/go-acme/lego/v4/challenge"
-	"github.com/go-acme/lego/v4/challenge/dns01"
 	"github.com/go-acme/lego/v4/providers/dns/acmedns"
 	"github.com/go-acme/lego/v4/providers/dns/active24"
 	"github.com/go-acme/lego/v4/providers/dns/alidns"
+	"github.com/go-acme/lego/v4/providers/dns/aliesa"
 	"github.com/go-acme/lego/v4/providers/dns/allinkl"
 	"github.com/go-acme/lego/v4/providers/dns/anexia"
 	"github.com/go-acme/lego/v4/providers/dns/arvancloud"
@@ -56,6 +56,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/dyndnsfree"
 	"github.com/go-acme/lego/v4/providers/dns/dynu"
 	"github.com/go-acme/lego/v4/providers/dns/easydns"
+	"github.com/go-acme/lego/v4/providers/dns/edgecenter"
 	"github.com/go-acme/lego/v4/providers/dns/edgedns"
 	"github.com/go-acme/lego/v4/providers/dns/edgeone"
 	"github.com/go-acme/lego/v4/providers/dns/efficientip"
@@ -68,12 +69,15 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/gandiv5"
 	"github.com/go-acme/lego/v4/providers/dns/gcloud"
 	"github.com/go-acme/lego/v4/providers/dns/gcore"
+	"github.com/go-acme/lego/v4/providers/dns/gigahostno"
 	"github.com/go-acme/lego/v4/providers/dns/glesys"
 	"github.com/go-acme/lego/v4/providers/dns/godaddy"
 	"github.com/go-acme/lego/v4/providers/dns/googledomains"
+	"github.com/go-acme/lego/v4/providers/dns/gravity"
 	"github.com/go-acme/lego/v4/providers/dns/hetzner"
 	"github.com/go-acme/lego/v4/providers/dns/hostingde"
 	"github.com/go-acme/lego/v4/providers/dns/hostinger"
+	"github.com/go-acme/lego/v4/providers/dns/hostingnl"
 	"github.com/go-acme/lego/v4/providers/dns/hosttech"
 	"github.com/go-acme/lego/v4/providers/dns/httpnet"
 	"github.com/go-acme/lego/v4/providers/dns/httpreq"
@@ -88,6 +92,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/internetbs"
 	"github.com/go-acme/lego/v4/providers/dns/inwx"
 	"github.com/go-acme/lego/v4/providers/dns/ionos"
+	"github.com/go-acme/lego/v4/providers/dns/ionoscloud"
 	"github.com/go-acme/lego/v4/providers/dns/ipv64"
 	"github.com/go-acme/lego/v4/providers/dns/iwantmyname"
 	"github.com/go-acme/lego/v4/providers/dns/joker"
@@ -101,6 +106,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/luadns"
 	"github.com/go-acme/lego/v4/providers/dns/mailinabox"
 	"github.com/go-acme/lego/v4/providers/dns/manageengine"
+	"github.com/go-acme/lego/v4/providers/dns/manual"
 	"github.com/go-acme/lego/v4/providers/dns/metaname"
 	"github.com/go-acme/lego/v4/providers/dns/metaregistrar"
 	"github.com/go-acme/lego/v4/providers/dns/mijnhost"
@@ -112,6 +118,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/namedotcom"
 	"github.com/go-acme/lego/v4/providers/dns/namesilo"
 	"github.com/go-acme/lego/v4/providers/dns/nearlyfreespeech"
+	"github.com/go-acme/lego/v4/providers/dns/neodigit"
 	"github.com/go-acme/lego/v4/providers/dns/netcup"
 	"github.com/go-acme/lego/v4/providers/dns/netlify"
 	"github.com/go-acme/lego/v4/providers/dns/nicmanager"
@@ -147,16 +154,19 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/sonic"
 	"github.com/go-acme/lego/v4/providers/dns/spaceship"
 	"github.com/go-acme/lego/v4/providers/dns/stackpath"
+	"github.com/go-acme/lego/v4/providers/dns/syse"
 	"github.com/go-acme/lego/v4/providers/dns/technitium"
 	"github.com/go-acme/lego/v4/providers/dns/tencentcloud"
 	"github.com/go-acme/lego/v4/providers/dns/timewebcloud"
 	"github.com/go-acme/lego/v4/providers/dns/transip"
 	"github.com/go-acme/lego/v4/providers/dns/ultradns"
+	"github.com/go-acme/lego/v4/providers/dns/uniteddomains"
 	"github.com/go-acme/lego/v4/providers/dns/variomedia"
 	"github.com/go-acme/lego/v4/providers/dns/vegadns"
 	"github.com/go-acme/lego/v4/providers/dns/vercel"
 	"github.com/go-acme/lego/v4/providers/dns/versio"
 	"github.com/go-acme/lego/v4/providers/dns/vinyldns"
+	"github.com/go-acme/lego/v4/providers/dns/virtualname"
 	"github.com/go-acme/lego/v4/providers/dns/vkcloud"
 	"github.com/go-acme/lego/v4/providers/dns/volcengine"
 	"github.com/go-acme/lego/v4/providers/dns/vscale"
@@ -177,14 +187,14 @@ import (
 // NewDNSChallengeProviderByName Factory for DNS providers.
 func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 	switch name {
-	case "manual":
-		return dns01.NewDNSProviderManual()
 	case "acme-dns", "acmedns":
 		return acmedns.NewDNSProvider()
 	case "active24":
 		return active24.NewDNSProvider()
 	case "alidns":
 		return alidns.NewDNSProvider()
+	case "aliesa":
+		return aliesa.NewDNSProvider()
 	case "allinkl":
 		return allinkl.NewDNSProvider()
 	case "anexia":
@@ -277,6 +287,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return dynu.NewDNSProvider()
 	case "easydns":
 		return easydns.NewDNSProvider()
+	case "edgecenter":
+		return edgecenter.NewDNSProvider()
 	case "edgedns", "fastdns":
 		return edgedns.NewDNSProvider()
 	case "edgeone":
@@ -301,18 +313,24 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return gcloud.NewDNSProvider()
 	case "gcore":
 		return gcore.NewDNSProvider()
+	case "gigahostno":
+		return gigahostno.NewDNSProvider()
 	case "glesys":
 		return glesys.NewDNSProvider()
 	case "godaddy":
 		return godaddy.NewDNSProvider()
 	case "googledomains":
 		return googledomains.NewDNSProvider()
+	case "gravity":
+		return gravity.NewDNSProvider()
 	case "hetzner":
 		return hetzner.NewDNSProvider()
 	case "hostingde":
 		return hostingde.NewDNSProvider()
 	case "hostinger":
 		return hostinger.NewDNSProvider()
+	case "hostingnl":
+		return hostingnl.NewDNSProvider()
 	case "hosttech":
 		return hosttech.NewDNSProvider()
 	case "httpnet":
@@ -341,6 +359,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return inwx.NewDNSProvider()
 	case "ionos":
 		return ionos.NewDNSProvider()
+	case "ionoscloud":
+		return ionoscloud.NewDNSProvider()
 	case "ipv64":
 		return ipv64.NewDNSProvider()
 	case "iwantmyname":
@@ -367,6 +387,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return mailinabox.NewDNSProvider()
 	case "manageengine":
 		return manageengine.NewDNSProvider()
+	case "manual":
+		return manual.NewDNSProvider()
 	case "metaname":
 		return metaname.NewDNSProvider()
 	case "metaregistrar":
@@ -389,6 +411,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return namesilo.NewDNSProvider()
 	case "nearlyfreespeech":
 		return nearlyfreespeech.NewDNSProvider()
+	case "neodigit":
+		return neodigit.NewDNSProvider()
 	case "netcup":
 		return netcup.NewDNSProvider()
 	case "netlify":
@@ -459,6 +483,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return spaceship.NewDNSProvider()
 	case "stackpath":
 		return stackpath.NewDNSProvider()
+	case "syse":
+		return syse.NewDNSProvider()
 	case "technitium":
 		return technitium.NewDNSProvider()
 	case "tencentcloud":
@@ -469,6 +495,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return transip.NewDNSProvider()
 	case "ultradns":
 		return ultradns.NewDNSProvider()
+	case "uniteddomains":
+		return uniteddomains.NewDNSProvider()
 	case "variomedia":
 		return variomedia.NewDNSProvider()
 	case "vegadns":
@@ -479,6 +507,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return versio.NewDNSProvider()
 	case "vinyldns":
 		return vinyldns.NewDNSProvider()
+	case "virtualname":
+		return virtualname.NewDNSProvider()
 	case "vkcloud":
 		return vkcloud.NewDNSProvider()
 	case "volcengine":

@@ -34,8 +34,20 @@ body:
         - Through Bitnami
         - Through 1Panel
         - Through Zoraxy
+        - Through Certimate
         - go install
         - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Who are you?
+      options:
+        - A customer of this DNS provider
+        - An employee of this DNS provider
+        - Other (please explain)
     validations:
       required: true
 

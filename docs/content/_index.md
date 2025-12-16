@@ -7,6 +7,16 @@ chapter: false
 
 Let's Encrypt client and ACME library written in Go.
 
+{{% notice important %}}
+lego is an independent, free, and open-source project, if you value it, consider [supporting it](https://donate.ldez.dev)! ❤️
+
+This project is not owned by a company. I'm not an employee of a company.
+
+I don't have gifted domains/accounts from DNS companies.
+
+I've been maintaining it for about 10 years.
+{{% /notice %}}
+
 ## Features
 
 - ACME v2 [RFC 8555](https://www.rfc-editor.org/rfc/rfc8555.html)
@@ -14,7 +24,7 @@ Let's Encrypt client and ACME library written in Go.
   - Support [RFC 8738](https://www.rfc-editor.org/rfc/rfc8738.html): issues certificates for IP addresses
   - Support [RFC 9773](https://www.rfc-editor.org/rfc/rfc9773.html): Renewal Information (ARI) Extension
   - Support [draft-ietf-acme-profiles-00](https://datatracker.ietf.org/doc/draft-ietf-acme-profiles/): Profiles Extension
-- Comes with about [150 DNS providers]({{% ref "dns" %}})
+- Comes with about [170 DNS providers]({{% ref "dns" %}})
 - Register with CA
 - Obtain certificates, both from scratch or with an existing CSR
 - Renew certificates
