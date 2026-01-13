@@ -11,6 +11,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/alidns"
 	"github.com/go-acme/lego/v4/providers/dns/aliesa"
 	"github.com/go-acme/lego/v4/providers/dns/allinkl"
+	"github.com/go-acme/lego/v4/providers/dns/alwaysdata"
 	"github.com/go-acme/lego/v4/providers/dns/anexia"
 	"github.com/go-acme/lego/v4/providers/dns/arvancloud"
 	"github.com/go-acme/lego/v4/providers/dns/auroradns"
@@ -34,6 +35,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/cloudns"
 	"github.com/go-acme/lego/v4/providers/dns/cloudru"
 	"github.com/go-acme/lego/v4/providers/dns/cloudxns"
+	"github.com/go-acme/lego/v4/providers/dns/com35"
 	"github.com/go-acme/lego/v4/providers/dns/conoha"
 	"github.com/go-acme/lego/v4/providers/dns/conohav3"
 	"github.com/go-acme/lego/v4/providers/dns/constellix"
@@ -44,6 +46,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/designate"
 	"github.com/go-acme/lego/v4/providers/dns/digitalocean"
 	"github.com/go-acme/lego/v4/providers/dns/directadmin"
+	"github.com/go-acme/lego/v4/providers/dns/dnsexit"
 	"github.com/go-acme/lego/v4/providers/dns/dnshomede"
 	"github.com/go-acme/lego/v4/providers/dns/dnsimple"
 	"github.com/go-acme/lego/v4/providers/dns/dnsmadeeasy"
@@ -94,7 +97,10 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/ionos"
 	"github.com/go-acme/lego/v4/providers/dns/ionoscloud"
 	"github.com/go-acme/lego/v4/providers/dns/ipv64"
+	"github.com/go-acme/lego/v4/providers/dns/ispconfig"
+	"github.com/go-acme/lego/v4/providers/dns/ispconfigddns"
 	"github.com/go-acme/lego/v4/providers/dns/iwantmyname"
+	"github.com/go-acme/lego/v4/providers/dns/jdcloud"
 	"github.com/go-acme/lego/v4/providers/dns/joker"
 	"github.com/go-acme/lego/v4/providers/dns/keyhelp"
 	"github.com/go-acme/lego/v4/providers/dns/liara"
@@ -158,6 +164,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/technitium"
 	"github.com/go-acme/lego/v4/providers/dns/tencentcloud"
 	"github.com/go-acme/lego/v4/providers/dns/timewebcloud"
+	"github.com/go-acme/lego/v4/providers/dns/todaynic"
 	"github.com/go-acme/lego/v4/providers/dns/transip"
 	"github.com/go-acme/lego/v4/providers/dns/ultradns"
 	"github.com/go-acme/lego/v4/providers/dns/uniteddomains"
@@ -197,6 +204,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return aliesa.NewDNSProvider()
 	case "allinkl":
 		return allinkl.NewDNSProvider()
+	case "alwaysdata":
+		return alwaysdata.NewDNSProvider()
 	case "anexia":
 		return anexia.NewDNSProvider()
 	case "arvancloud":
@@ -243,6 +252,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return cloudru.NewDNSProvider()
 	case "cloudxns":
 		return cloudxns.NewDNSProvider()
+	case "com35":
+		return com35.NewDNSProvider()
 	case "conoha":
 		return conoha.NewDNSProvider()
 	case "conohav3":
@@ -263,6 +274,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return digitalocean.NewDNSProvider()
 	case "directadmin":
 		return directadmin.NewDNSProvider()
+	case "dnsexit":
+		return dnsexit.NewDNSProvider()
 	case "dnshomede":
 		return dnshomede.NewDNSProvider()
 	case "dnsimple":
@@ -363,8 +376,14 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return ionoscloud.NewDNSProvider()
 	case "ipv64":
 		return ipv64.NewDNSProvider()
+	case "ispconfig":
+		return ispconfig.NewDNSProvider()
+	case "ispconfigddns":
+		return ispconfigddns.NewDNSProvider()
 	case "iwantmyname":
 		return iwantmyname.NewDNSProvider()
+	case "jdcloud":
+		return jdcloud.NewDNSProvider()
 	case "joker":
 		return joker.NewDNSProvider()
 	case "keyhelp":
@@ -491,6 +510,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return tencentcloud.NewDNSProvider()
 	case "timewebcloud":
 		return timewebcloud.NewDNSProvider()
+	case "todaynic":
+		return todaynic.NewDNSProvider()
 	case "transip":
 		return transip.NewDNSProvider()
 	case "ultradns":
