@@ -13,6 +13,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/allinkl"
 	"github.com/go-acme/lego/v4/providers/dns/alwaysdata"
 	"github.com/go-acme/lego/v4/providers/dns/anexia"
+	"github.com/go-acme/lego/v4/providers/dns/artfiles"
 	"github.com/go-acme/lego/v4/providers/dns/arvancloud"
 	"github.com/go-acme/lego/v4/providers/dns/auroradns"
 	"github.com/go-acme/lego/v4/providers/dns/autodns"
@@ -42,6 +43,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/constellix"
 	"github.com/go-acme/lego/v4/providers/dns/corenetworks"
 	"github.com/go-acme/lego/v4/providers/dns/cpanel"
+	"github.com/go-acme/lego/v4/providers/dns/czechia"
 	"github.com/go-acme/lego/v4/providers/dns/ddnss"
 	"github.com/go-acme/lego/v4/providers/dns/derak"
 	"github.com/go-acme/lego/v4/providers/dns/desec"
@@ -66,6 +68,8 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/edgeone"
 	"github.com/go-acme/lego/v4/providers/dns/efficientip"
 	"github.com/go-acme/lego/v4/providers/dns/epik"
+	"github.com/go-acme/lego/v4/providers/dns/eurodns"
+	"github.com/go-acme/lego/v4/providers/dns/excedo"
 	"github.com/go-acme/lego/v4/providers/dns/exec"
 	"github.com/go-acme/lego/v4/providers/dns/exoscale"
 	"github.com/go-acme/lego/v4/providers/dns/f5xc"
@@ -105,6 +109,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/jdcloud"
 	"github.com/go-acme/lego/v4/providers/dns/joker"
 	"github.com/go-acme/lego/v4/providers/dns/keyhelp"
+	"github.com/go-acme/lego/v4/providers/dns/leaseweb"
 	"github.com/go-acme/lego/v4/providers/dns/liara"
 	"github.com/go-acme/lego/v4/providers/dns/lightsail"
 	"github.com/go-acme/lego/v4/providers/dns/limacity"
@@ -125,6 +130,7 @@ import (
 	"github.com/go-acme/lego/v4/providers/dns/namecheap"
 	"github.com/go-acme/lego/v4/providers/dns/namedotcom"
 	"github.com/go-acme/lego/v4/providers/dns/namesilo"
+	"github.com/go-acme/lego/v4/providers/dns/namesurfer"
 	"github.com/go-acme/lego/v4/providers/dns/nearlyfreespeech"
 	"github.com/go-acme/lego/v4/providers/dns/neodigit"
 	"github.com/go-acme/lego/v4/providers/dns/netcup"
@@ -210,6 +216,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return alwaysdata.NewDNSProvider()
 	case "anexia":
 		return anexia.NewDNSProvider()
+	case "artfiles":
+		return artfiles.NewDNSProvider()
 	case "arvancloud":
 		return arvancloud.NewDNSProvider()
 	case "auroradns":
@@ -268,6 +276,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return corenetworks.NewDNSProvider()
 	case "cpanel":
 		return cpanel.NewDNSProvider()
+	case "czechia":
+		return czechia.NewDNSProvider()
 	case "ddnss":
 		return ddnss.NewDNSProvider()
 	case "derak":
@@ -316,6 +326,10 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return efficientip.NewDNSProvider()
 	case "epik":
 		return epik.NewDNSProvider()
+	case "eurodns":
+		return eurodns.NewDNSProvider()
+	case "excedo":
+		return excedo.NewDNSProvider()
 	case "exec":
 		return exec.NewDNSProvider()
 	case "exoscale":
@@ -394,6 +408,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return joker.NewDNSProvider()
 	case "keyhelp":
 		return keyhelp.NewDNSProvider()
+	case "leaseweb":
+		return leaseweb.NewDNSProvider()
 	case "liara":
 		return liara.NewDNSProvider()
 	case "lightsail":
@@ -434,6 +450,8 @@ func NewDNSChallengeProviderByName(name string) (challenge.Provider, error) {
 		return namedotcom.NewDNSProvider()
 	case "namesilo":
 		return namesilo.NewDNSProvider()
+	case "namesurfer":
+		return namesurfer.NewDNSProvider()
 	case "nearlyfreespeech":
 		return nearlyfreespeech.NewDNSProvider()
 	case "neodigit":
